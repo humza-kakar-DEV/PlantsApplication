@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.SellPlantFragment">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/roundImageView"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:background="@drawable/plant_edit_image_background"
+        android:padding="@dimen/_5sdp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/plant_edit_4"
+        app:layout_constraintBottom_toTopOf="@id/text_input_name"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:riv_corner_radius="@dimen/_15sdp" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/imageEidButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/plant_edit_button_background"
+        android:padding="@dimen/_5sdp"
+
+        android:src="@drawable/baseline_edit_24"
+        app:layout_constraintBottom_toBottomOf="@+id/roundImageView"
+        app:layout_constraintEnd_toEndOf="@+id/roundImageView"
+        app:layout_constraintTop_toBottomOf="@+id/roundImageView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_description"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/roundImageView"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_price"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_name"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_location"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_description"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/createLoadingButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_price"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Location"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.flod.loadingbutton.LoadingButton
+        android:id="@+id/createLoadingButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/custom_green"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppinsregular"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Create"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:enableRestore="true"
+        app:enableShrink="true"
+        app:endSuccessDrawable="@drawable/baseline_done_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/text_input_location"
+        app:loadingDrawablePosition="Start"
+        app:radius="50dp"
+        app:shrinkShape="Oval" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

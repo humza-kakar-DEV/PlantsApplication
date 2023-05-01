@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "481767961144",
+    "project_id": "plants-market-fyp",
+    "storage_bucket": "plants-market-fyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481767961144:android:ddde81def1015742f1accd",
+        "android_client_info": {
+          "package_name": "com.example.plantsservicefyp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481767961144-56u4qeilll6gmvs3e8vg3pulrtc2ceb0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plantsservicefyp",
+            "certificate_hash": "83177ef2187dfc214333964d41ccc4370aafb5f0"
+          }
+        },
+        {
+          "client_id": "481767961144-7ati3us221utt2hrlmad2e3s5q9mcsb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXYtYsPjx_4voqGgfgRLvIufAll2kMMnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481767961144-7ati3us221utt2hrlmad2e3s5q9mcsb9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

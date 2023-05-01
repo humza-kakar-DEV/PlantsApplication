@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.SeeAllFragment">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="All"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Herbs"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shrubs"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip4"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trees"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip5"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Climbers"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip6"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Creepers"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                android:layout_marginRight="@dimen/_6sdp"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/itemFoundTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="500+ founds"
+        android:paddingLeft="@dimen/_4sdp"
+        android:textColor="@color/custom_green"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/filterImageView"
+        app:layout_constraintEnd_toStartOf="@id/filterImageView"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/filterImageView" />
+
+    <ImageView
+        android:id="@+id/filterImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/filter_image_view_background"
+        android:padding="@dimen/_3sdp"
+        android:layout_marginRight="@dimen/_4sdp"
+        android:src="@drawable/baseline_filter_alt_24"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/itemFoundTextView"
+        app:layout_constraintTop_toBottomOf="@id/barrier4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/seeAllFragmentRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@id/barrier5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="horizontalScrollView" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="filterImageView,itemFoundTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
