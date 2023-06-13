@@ -4,103 +4,161 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".fragment.buyer.HomeFragment">
 
-    <TextView
-        android:id="@+id/specialOfferTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:text="Special Offers"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:paddingLeft="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/percentOffTagTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:text="50%"
-        android:textColor="@color/custom_green"
-        android:textSize="14sp"
-        android:paddingRight="@dimen/_4sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/specialOfferTextView"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/specialOfferRecyclerView"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specialOfferTextView"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/allChip"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/herbsChip"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Herbs"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/shrubsChip"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shrubs"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/treesChip"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trees"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/climbersChip"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Climbers"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/creepersChip"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Creepers"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                android:layout_marginRight="@dimen/_6sdp"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
 
     <TextView
-        android:id="@+id/mostPopularTextView"
+        android:id="@+id/itemFoundTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinsbold"
-        android:text="Most popular"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:text="0 founds"
         android:paddingLeft="@dimen/_4sdp"
-        app:layout_constraintBottom_toTopOf="@id/mostPopularRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/barrier3"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/seeAllTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:text="See all"
         android:textColor="@color/custom_green"
         android:textSize="14sp"
-        android:paddingRight="@dimen/_4sdp"
-        app:layout_constraintBottom_toTopOf="@+id/mostPopularRecyclerView"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/specialOfferRecyclerView"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintBottom_toBottomOf="@+id/filterImageView"
+        app:layout_constraintEnd_toStartOf="@id/filterImageView"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/filterImageView" />
+
+    <ImageView
+        android:id="@+id/filterImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/filter_image_view_background"
+        android:padding="@dimen/_3sdp"
+        android:layout_marginRight="@dimen/_4sdp"
+        android:src="@drawable/baseline_filter_alt_24"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/itemFoundTextView"
+        app:layout_constraintTop_toBottomOf="@id/barrier4" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mostPopularRecyclerView"
+        android:id="@+id/seeAllFragmentRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/mostPopularTextView"
-        app:layout_constraintVertical_chainStyle="packed" />
-
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@id/barrier5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.02" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.98" />
 
-    <!--    BARRIER ATTACHED TO RECYCLERVIEW    -->
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier3"
+        android:id="@+id/barrier4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="specialOfferRecyclerView"
-        tools:layout_editor_absoluteY="339dp" />
+        app:constraint_referenced_ids="horizontalScrollView" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="filterImageView,itemFoundTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

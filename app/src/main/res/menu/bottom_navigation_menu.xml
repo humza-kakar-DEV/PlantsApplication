@@ -14,21 +14,9 @@
         android:title="cart" />
 
     <item
-        android:id="@+id/sell_tab"
-        android:enabled="true"
-        android:icon="@drawable/add_icon"
-        android:title="sell" />
-
-    <item
         android:id="@+id/favourite_tab"
         android:enabled="true"
         android:icon="@drawable/heart_icon"
         android:title="favourite" />
-
-    <item
-        android:id="@+id/profile_tab"
-        android:enabled="true"
-        android:icon="@drawable/profile_icon"
-        android:title="profile" />
 
 </menu>

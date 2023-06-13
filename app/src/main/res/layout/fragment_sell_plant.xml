@@ -4,22 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.SellPlantFragment">
+    tools:context=".fragment.seller.SellPlantFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="Seller panel" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/roundImageView"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
         android:background="@drawable/plant_edit_image_background"
-        android:padding="@dimen/_5sdp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/plant_edit_4"
-        app:layout_constraintBottom_toTopOf="@id/text_input_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/seller_panel_image_3"
+        app:layout_constraintBottom_toTopOf="@id/aiAssistantTextView1"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coordinatorLayout2"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed"
         app:riv_corner_radius="@dimen/_15sdp" />
 
@@ -29,11 +52,29 @@
         android:layout_height="wrap_content"
         android:background="@drawable/plant_edit_button_background"
         android:padding="@dimen/_5sdp"
-
         android:src="@drawable/baseline_edit_24"
         app:layout_constraintBottom_toBottomOf="@+id/roundImageView"
         app:layout_constraintEnd_toEndOf="@+id/roundImageView"
         app:layout_constraintTop_toBottomOf="@+id/roundImageView" />
+
+    <TextView
+        android:id="@+id/aiAssistantTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ai_text_background"
+        android:fontFamily="@font/poppinsbold"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@id/imageEidButton"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_2sdp"
+        android:text="Ai assistant"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_name"
+        app:layout_constraintStart_toStartOf="@+id/text_input_name" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_name"
@@ -45,26 +86,52 @@
         app:boxCornerRadiusTopStart="@dimen/_10sdp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        android:textColorHint="@color/custom_green"
+        app:layout_constraintVertical_chainStyle="packed"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/text_input_description"
+        app:hintTextColor="@color/custom_green"
+        app:layout_constraintBottom_toTopOf="@+id/aiAssistantTextView2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/roundImageView"
-        app:layout_constraintVertical_chainStyle="packed">
+        app:layout_constraintTop_toBottomOf="@id/aiAssistantTextView1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
+            android:textSize="@dimen/_12sdp"
+            android:textColorHint="@color/custom_green"
+            android:background="@drawable/ai_assistant_text_field_background"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/aiAssistantTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ai_text_background"
+        android:fontFamily="@font/poppinsbold"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_2sdp"
+        android:text="Ai assistant"
+        app:hintTextColor="@color/custom_green"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/text_input_name"
+        app:layout_constraintBottom_toTopOf="@id/text_input_description"
+        app:layout_constraintStart_toStartOf="@+id/text_input_description" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/custom_green"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
         app:boxCornerRadiusTopEnd="@dimen/_10sdp"
@@ -72,18 +139,21 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/text_input_price"
+        app:layout_constraintBottom_toTopOf="@id/text_input_price"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_name"
+        app:layout_constraintTop_toBottomOf="@+id/aiAssistantTextView2"
         app:layout_constraintVertical_chainStyle="packed">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/ai_assistant_text_field_background"
             android:hint="Description"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColorHint="@color/custom_green"
+            android:textSize="@dimen/_12sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,6 +168,7 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:errorEnabled="true"
+        android:textColorHint="@color/custom_green"
         app:layout_constraintBottom_toTopOf="@+id/text_input_location"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -109,6 +180,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Price"
+            android:textSize="@dimen/_12sdp"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -117,6 +189,7 @@
         android:id="@+id/text_input_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/custom_green"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
         app:boxCornerRadiusTopEnd="@dimen/_10sdp"
@@ -124,7 +197,7 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/createLoadingButton"
+        app:layout_constraintBottom_toTopOf="@id/sellAllPlantSpinner"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -135,33 +208,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Location"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textSize="@dimen/_12sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/sellAllPlantSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/rectangle_outline"
+        android:fontFamily="@font/poppinsregular"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:hint="Category"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="14.5sp"
+        app:layout_constraintBottom_toTopOf="@id/aiAssistantButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_location"
+        app:spinner_arrow_gravity="end"
+        app:spinner_arrow_tint="@color/black"
+        app:spinner_divider_color="@color/black"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:spinner_item_array="@array/plant_categories"
+        app:spinner_item_height="46dp"
+        app:spinner_popup_animation="normal"
+        app:spinner_popup_background="@color/white"
+        app:spinner_popup_elevation="14dp"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/aiAssistantButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:background="@drawable/ai_asistant_button_background"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Ai assistant"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/sellAllPlantSpinner"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <com.flod.loadingbutton.LoadingButton
         android:id="@+id/createLoadingButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
-        android:background="@color/custom_green"
+        android:background="@drawable/button_background"
         android:drawablePadding="10dp"
         android:fontFamily="@font/poppinsregular"
         android:gravity="center"
         android:padding="8dp"
         android:text="Create"
+        app:layout_constraintBottom_toBottomOf="@id/aiAssistantButton"
+        app:layout_constraintTop_toTopOf="@id/aiAssistantButton"
         android:textColor="@color/white"
+        android:layout_marginRight="@dimen/_10sdp"
         android:textSize="14sp"
         app:enableRestore="true"
         app:enableShrink="true"
         app:endSuccessDrawable="@drawable/baseline_done_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/text_input_location"
         app:loadingDrawablePosition="Start"
         app:radius="50dp"
-        app:shrinkShape="Oval" />
+        app:shrinkShape="Oval"
+        tools:layout_editor_absoluteY="637dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -176,5 +298,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

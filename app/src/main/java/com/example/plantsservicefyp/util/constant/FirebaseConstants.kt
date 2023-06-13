@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.util
+package com.example.plantsservicefyp.util.constant
 
 enum class FirebaseConstants(val value: String) {
     FIRESTORE_PLANT("plant"),

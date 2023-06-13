@@ -96,7 +96,7 @@ class SignUpFragment : Fragment() {
                 password = passwordInput
             ).apply {
                 authenticationViewModel.signUp(
-                    firebaseAuthRolesConstants = FirebaseAuthRolesConstants.FIRESTORE_ADMIN,
+                    firebaseAuthRolesConstants = FirebaseAuthRolesConstants.FIRESTORE_SELLER,
                     user = this
                 )
             }
@@ -115,9 +115,6 @@ class SignUpFragment : Fragment() {
             }
         })
     }
-
-
-
 
     private fun validateUsername(): Boolean {
         usernameInput = binding.textInputName.getEditText()?.getText().toString().trim()

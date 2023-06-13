@@ -1,10 +1,13 @@
 package com.example.plantsservicefyp.viewmodel
 
+import android.app.appsearch.observer.ObserverCallback
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.plantsservicefyp.model.User
-import com.example.plantsservicefyp.repository.AuthenticationRepository
+import com.example.plantsservicefyp.repository.authentication.AuthenticationRepository
+import com.example.plantsservicefyp.util.CurrentUserType
+import com.example.plantsservicefyp.util.constant.FirebaseAuthRolesConstants
 import com.example.plantsservicefyp.util.UiState
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
@@ -16,20 +19,24 @@ class AuthenticationViewModel @Inject() constructor(
     private val authenticationRepository: AuthenticationRepository
 ) : ViewModel() {
 
-    private var observeSignIn = MutableLiveData<UiState<AuthResult>>()
-
-    val _observeSignIn: LiveData<UiState<AuthResult>>
-        get() = observeSignIn
-
     private var observeSignUp = MutableLiveData<UiState<AuthResult>>()
 
     val _observeSignUp: LiveData<UiState<AuthResult>>
         get() = observeSignUp
 
-    private var observeCurrentUser = MutableLiveData<UiState.FirebaseAuthState<FirebaseUser>>()
+    private var observeSignIn = MutableLiveData<UiState<AuthResult>>()
 
-    val _observeCurrentUser: LiveData<UiState.FirebaseAuthState<FirebaseUser>>
-        get() = observeCurrentUser
+    val _observeSignIn: LiveData<UiState<AuthResult>>
+        get() = observeSignIn
+
+
+    private var observeCurrentUser = MutableLiveData<CurrentUserType<User>>()
+
+    val _observeCurrentUser: LiveData<CurrentUserType<User>>
+        get() {
+            currentUser()
+            return observeCurrentUser
+        }
 
     fun signIn(email: String, password: String) {
         authenticationRepository.signIn(email, password) {
@@ -37,14 +44,16 @@ class AuthenticationViewModel @Inject() constructor(
         }
     }
 
-    fun signUp(user: User) {
-        authenticationRepository.signUp(user) {
+    fun signUp(firebaseAuthRolesConstants: FirebaseAuthRolesConstants, user: User) {
+        authenticationRepository.signUp(firebaseAuthRolesConstants, user) {
             observeSignUp.value = it
         }
     }
 
     fun currentUser() {
-        observeCurrentUser.value = authenticationRepository.currentUser()
+        authenticationRepository.currentUser {
+            observeCurrentUser.value = it
+        }
     }
 
     fun signOut() {

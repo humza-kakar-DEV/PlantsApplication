@@ -14,10 +14,10 @@ import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.model.Plant
 import com.google.firebase.firestore.DocumentSnapshot
 
-class PlantItemsRecyclerView (
+class PlantItemsRecyclerViewAdapter (
     private val context: Context,
     var callback: (selectedPlant: DocumentSnapshot) -> Unit,
-) : RecyclerView.Adapter<PlantItemsRecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<PlantItemsRecyclerViewAdapter.ViewHolder>() {
 
     private var plantDocumentList = mutableListOf<DocumentSnapshot>()
     private var plantList = mutableListOf<Plant>()
@@ -57,13 +57,8 @@ class PlantItemsRecyclerView (
         convertToPlant()
     }
 
-    fun updateWithPlants(plantList: List<Plant>) {
-        this.plantList.clear()
-        this.plantList.addAll(plantList)
-        notifyDataSetChanged()
-    }
-
-    fun convertToPlant () {
+    private fun convertToPlant () {
+        plantList.clear()
         plantDocumentList.forEach {
             plantList.add(it.toObject(Plant::class.java)!!)
         }

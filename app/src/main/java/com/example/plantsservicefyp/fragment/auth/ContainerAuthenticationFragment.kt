@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.databinding.FragmentContainerAuthenticationBinding
-import dagger.hilt.android.AndroidEntryPoint
 
 class ContainerAuthenticationFragment : Fragment() {
 

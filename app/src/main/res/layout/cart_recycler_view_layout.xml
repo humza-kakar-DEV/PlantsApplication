@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_120sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_20sdp"
+    app:cardElevation="@dimen/_10sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true"
+        android:clipToPadding="true"
+        android:padding="@dimen/_10sdp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/cartRecyclerViewImageView"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:src="@drawable/plant_test_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/cartRecyclerViewNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Robbin Plant"
+            android:textAlignment="textStart"
+            android:textColor="@color/custom_green"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@id/cartRecyclerViewDescriptionTextView"
+            app:layout_constraintStart_toEndOf="@+id/cartRecyclerViewImageView"
+            app:layout_constraintTop_toTopOf="@+id/cartRecyclerViewImageView" />
+
+        <TextView
+            android:id="@+id/cartRecyclerViewDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsbold"
+            android:text="the most widely available form, makes a striking ornamental shrub, It can be grown as a standalone shrub or a hedge, as of plants."
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@id/cartRecyclerViewPriceTextView"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cartRecyclerViewImageView"
+            app:layout_constraintTop_toBottomOf="@+id/cartRecyclerViewNameTextView" />
+
+        <TextView
+            android:id="@+id/cartRecyclerViewPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Rs. 1260"
+            android:textAlignment="textStart"
+            android:textColor="@color/custom_green"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cartRecyclerViewImageView"
+            app:layout_constraintStart_toEndOf="@+id/cartRecyclerViewImageView"
+            app:layout_constraintTop_toBottomOf="@+id/cartRecyclerViewDescriptionTextView" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/cartRecyclerViewQuantityTextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/quantity_text_view_background"-->
+<!--            android:fontFamily="@font/poppinsbold"-->
+<!--            android:padding="@dimen/_5sdp"-->
+<!--            android:text="8"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/cartRecyclerViewImageView"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/cartRecyclerViewImageView" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

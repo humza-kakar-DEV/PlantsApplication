@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.fragment
+package com.example.plantsservicefyp.fragment.buyer
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,27 +11,43 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
-import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.plantsservicefyp.R
+import com.example.plantsservicefyp.activity.MainActivity
 import com.example.plantsservicefyp.databinding.FragmentContainerMainDataBinding
+import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.constant.ChangeFragment
+import com.example.plantsservicefyp.util.log
+import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.viewmodel.ContainerMainDataViewModel
+import com.example.plantsservicefyp.viewmodel.SharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ContainerMainData : Fragment() {
 
     private lateinit var binding: FragmentContainerMainDataBinding
 
-    private val homeFragment: HomeFragment by lazy {
-        HomeFragment(::homeFragmentCallBack)
-    }
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    private val seeAllFragment: SeeAllFragment by lazy {
-        SeeAllFragment()
-    }
+    private val containerMainDataViewModel: ContainerMainDataViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentContainerMainDataBinding.inflate(layoutInflater, container, false)
+
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .replace(binding.mainDataFrameLayout.id, HomeFragment())
+            .commit()
 
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -44,12 +60,13 @@ class ContainerMainData : Fragment() {
                     textView?.setTextColor(Color.parseColor("#FFFFFFFF"))
                     searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                         override fun onQueryTextSubmit(p0: String?): Boolean {
-                            Toast.makeText(context, "search item", Toast.LENGTH_SHORT).show()
+                            sharedViewModel.searchByName(p0.toString())
+                            sharedViewModel.changeFragment(ChangeFragment.SHOW_PLANT_FRAGMENT)
+                            menuItem.collapseActionView()
                             return false
                         }
 
                         override fun onQueryTextChange(p0: String?): Boolean {
-                            Toast.makeText(context, "search item", Toast.LENGTH_SHORT).show()
                             return false
                         }
                     })
@@ -59,38 +76,27 @@ class ContainerMainData : Fragment() {
             }
         }
 
-        requireActivity()
-            .supportFragmentManager
-            .beginTransaction()
-            .replace(binding.mainDataFrameLayout.id, homeFragment)
-            .setCustomAnimations(
-                R.anim.slide_in,  // enter
-                R.anim.fade_out,  // exit
-                R.anim.fade_in,   // popEnter
-                R.anim.slide_out  // popExit
-            )
-            .commit()
-
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {item ->
+        binding.bottomNavigationView.setSelectedItemId(R.id.home_tab)
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home_tab -> {
-                    requireActivity().supportFragmentManager
+                    requireActivity()
+                        .supportFragmentManager
                         .beginTransaction()
-                        .replace(binding.mainDataFrameLayout.id, homeFragment)
+                        .replace(binding.mainDataFrameLayout.id, HomeFragment())
                         .commit()
                 }
                 R.id.favourite_tab -> {
                 }
                 R.id.cart_tab -> {
-                    requireActivity().supportFragmentManager
+                    requireActivity()
+                        .supportFragmentManager
                         .beginTransaction()
                         .replace(
                             binding.mainDataFrameLayout.id,
                             CartFragment()
                         )
                         .commit()
-                }
-                R.id.profile_tab -> {
                 }
             }
             true
@@ -99,17 +105,14 @@ class ContainerMainData : Fragment() {
         return binding.root
     }
 
-    private fun homeFragmentCallBack() {
-        requireActivity()
-            .supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in,  // enter
-                R.anim.fade_out,  // exit
-                R.anim.fade_in,   // popEnter
-                R.anim.slide_out  // popExit
-            )
-            .replace(binding.mainDataFrameLayout.id, seeAllFragment)
-            .commit()
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        requireActivity()
+//            .supportFragmentManager
+//            .beginTransaction()
+//            .replace(binding.mainDataFrameLayout.id, HomeFragment())
+//            .commit()
+//    }
+
 }

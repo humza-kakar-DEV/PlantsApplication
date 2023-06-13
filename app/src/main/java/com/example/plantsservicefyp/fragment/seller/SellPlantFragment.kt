@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.fragment.buyer
+package com.example.plantsservicefyp.fragment.seller
 
 import android.app.Activity
 import android.content.Intent
@@ -16,7 +16,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.databinding.FragmentSellPlantBinding
 import com.example.plantsservicefyp.model.Plant
+import com.example.plantsservicefyp.util.CurrentUserType
 import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.log
+import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SellPlantViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,12 +29,15 @@ class SellPlantFragment : Fragment() {
 
     private lateinit var binding: FragmentSellPlantBinding
     private val sellPlantViewModel: SellPlantViewModel by viewModels()
+    private val authenticationViewModel: AuthenticationViewModel by viewModels()
 
     private lateinit var plantNameInput: String
     private lateinit var plantDescriptionInput: String
     private lateinit var plantPriceInput: String
     private lateinit var plantLocationInput: String
+    private var plantCategory: String? = null
     private var imageUri: Uri? = null
+    private lateinit var sellerId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,18 +45,28 @@ class SellPlantFragment : Fragment() {
     ): View? {
         binding = FragmentSellPlantBinding.inflate(layoutInflater, container, false)
 
+        authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
+            when (it) {
+                is CurrentUserType.Seller -> {
+                    sellerId = it.user.userId.toString()
+                    context?.log("sell plant fragment -> user id:" + it.user.userId.toString())
+                }
+                else -> {"irrelevant id's"}
+            }
+        }
+
         sellPlantViewModel._observePlantAdd.observe(viewLifecycleOwner) {
             when (it) {
                 UiState.Loading -> {
-                    Log.d("hm123", "plant -> Loading")
+                    requireContext().log("sell plant: Loading")
                     binding.createLoadingButton.start()
                 }
                 is UiState.Success -> {
-                    Log.d("hm123", "plant -> success: ${it.data}")
+                    requireContext().log(it.data.toString())
                     binding.createLoadingButton.complete(true)
                 }
                 is UiState.Error -> {
-                    Log.d("hm123", "plant -> error: ${it.exception}")
+                    requireContext().log("sell plant: ${it.exception.toString()}")
                 }
             }
         }
@@ -58,7 +75,11 @@ class SellPlantFragment : Fragment() {
             if (!validatePlantName() or !validatePlantDescription() or !validatePlantPrice() or !validatePlantLocation())
                 return@returnOnClick
             if (imageUri == null) {
-                Toast.makeText(requireContext(), "Select plant image", Toast.LENGTH_SHORT).show()
+                requireContext().toast("Select plant image")
+                return@returnOnClick
+            }
+            if (plantCategory == null) {
+                requireContext().toast("Select plant category")
                 return@returnOnClick
             }
             Plant(
@@ -66,8 +87,9 @@ class SellPlantFragment : Fragment() {
                 description = plantDescriptionInput,
                 price = plantPriceInput,
                 location = plantLocationInput,
-                userId = null,
+                sellerId = sellerId,
                 imageDownloadUrl = null,
+                plantCategory = plantCategory?:""
             ).apply {
                 sellPlantViewModel.addPlant(plant = this, imageUri = imageUri!!)
             }
@@ -92,6 +114,9 @@ class SellPlantFragment : Fragment() {
             )
         }
 
+        binding.sellAllPlantSpinner.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
+            plantCategory = newItem
+        }
 
         return binding.root
     }

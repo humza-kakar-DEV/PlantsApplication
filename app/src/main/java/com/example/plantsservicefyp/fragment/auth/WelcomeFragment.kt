@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.fragment
+package com.example.plantsservicefyp.fragment.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

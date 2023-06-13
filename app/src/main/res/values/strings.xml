@@ -1,4 +1,20 @@
 <resources>
-    <string name="app_name">PlanTea</string>
+    <string name="app_name" translatable="false">PlanTea</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="admin_panel">
+        <item>approve</item>
+        <item>forbid</item>
+    </string-array>
+    <string-array name="authentication_roles">
+        <item>seller</item>
+        <item>buyer</item>
+        <item>admin</item>
+    </string-array>
+    <string-array name="plant_categories">
+        <item>Herbs</item>
+        <item>Shrubs</item>
+        <item>Trees</item>
+        <item>Climbers</item>
+        <item>Creepers</item>
+    </string-array>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="purple">#ee82ee</color>
     <color name="purple_200">@color/custom_green</color>
     <color name="purple_500">@color/custom_green</color>
     <color name="purple_700">@color/custom_green</color>
@@ -7,9 +8,37 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="gray">#595959</color>
+    <color name="custom_gray">#E0E0E0</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="custom_white">#EEEEEE</color>
+<!--    custom white    -->
+    <color name="custom_white1">#EEEEEE</color>
     <color name="custom_green">#00BA6B</color>
+    <color name="dark_custom_green">#009236</color>
+    <color name="transparent_custom_green"><color name="custom_green">#00BA6B</color></color>
     <color name="custom_red">#FF0000</color>
     <color name="custom_transparent">#0000BA6B</color>
+    <color name="background">#2B292B</color>
+    <color name="background800">#424242</color>
+    <color name="background900">#212121</color>
+    <color name="white_56">#8effffff</color>
+    <color name="white_70">#b2ffffff</color>
+    <color name="white_87">#ddffffff</color>
+    <color name="white_93">#edf8f8f8</color>
+<!--    white   -->
+    <color name="custom_white2">#ffffffff</color>
+    <color name="skyBlue">#57A8D8</color>
+    <color name="yellow">#FBC02D</color>
+    <color name="md_yellow_100">#FFD600</color>
+    <color name="md_yellow_200">#FBC02D</color>
+    <color name="md_amber_700">#FFA000</color>
+    <color name="md_orange_100">#FFA726</color>
+    <color name="md_orange_200">#FF6D00</color>
+    <color name="md_green_100">#81C784</color>
+    <color name="md_green_200">#388E3C</color>
+    <color name="md_blue_100">#81D4fA</color>
+    <color name="md_blue_200">#0091EA</color>
+    <color name="md_purple_100">#AA00FF</color>
+    <color name="md_purple_200">#7200CA</color>
+    <color name="powerspinner_scrollbar">#0091EA</color>
+<!--    transparent green   -->
 </resources>

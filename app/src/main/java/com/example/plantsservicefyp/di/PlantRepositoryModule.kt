@@ -1,7 +1,7 @@
 package com.example.plantsservicefyp.di
 
-import com.example.plantsservicefyp.repository.PlantRepository
-import com.example.plantsservicefyp.repository.PlantRepositoryImp
+import com.example.plantsservicefyp.repository.plant.PlantRepository
+import com.example.plantsservicefyp.repository.plant.PlantRepositoryImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

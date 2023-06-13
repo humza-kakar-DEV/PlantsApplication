@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.repository
+package com.example.plantsservicefyp.repository.plant
 
 import android.net.Uri
 import com.example.plantsservicefyp.model.Cart

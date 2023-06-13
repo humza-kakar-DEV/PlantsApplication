@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.activity
+package com.example.plantsservicefyp.util
 
 import android.content.Context
 import android.content.Intent
@@ -27,7 +27,7 @@ open class JazzCashPayment(
 
     private lateinit var mWebView: WebView
 
-    fun launch(webView: WebView) {
+    fun launch(webView: WebView, price: String) {
         mWebView = webView
         // Enable Javascript
         // Enable Javascript
@@ -51,9 +51,6 @@ open class JazzCashPayment(
 
 //        String[] values = price.split("\\.");
 //        price = values[0];
-
-        val price = "100"
-        println("AhmadLogs: price : $price")
 
         val Date = Date()
         val dateFormat = SimpleDateFormat("yyyyMMddHHmmss")
@@ -247,6 +244,8 @@ open class JazzCashPayment(
                     }
                 }
 
+                context.toast("JazzCashPayment: payment succeeded!!!")
+                context.log("JazzCashPayment: payment succeeded!!!")
 //                sending success broadcast
                 context.sendBroadcast(i)
                 return

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.SignUpFragment">
+    tools:context=".fragment.auth.SignUpFragment">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
-        android:src="@drawable/flower_image"
+        android:src="@drawable/flower_icon"
         app:layout_constraintBottom_toBottomOf="@+id/headingTextView"
         app:layout_constraintEnd_toStartOf="@+id/headingTextView"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -124,32 +124,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
-        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
-        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-        app:boxCornerRadiusTopStart="@dimen/_10sdp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:errorEnabled="true"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintBottom_toTopOf="@id/signUpLoadingButton"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_email">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -174,6 +148,88 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@id/signUpSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_email"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/signUpSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_outline"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:hint="select role"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="14.5sp"
+        android:fontFamily="@font/poppinsregular"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_password"
+        app:spinner_arrow_gravity="end"
+        app:spinner_arrow_tint="@color/black"
+        app:spinner_divider_color="@color/black"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:layout_constraintBottom_toTopOf="@id/signUpLoadingButton"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:spinner_item_array="@array/authentication_roles"
+        app:spinner_item_height="46dp"
+        app:spinner_popup_animation="normal"
+        app:spinner_popup_background="@color/white"
+        app:spinner_popup_elevation="14dp"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+    <com.flod.loadingbutton.LoadingButton
+        android:id="@+id/signUpLoadingButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/custom_green"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppinsregular"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Sign Up"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:enableRestore="true"
+        app:enableShrink="true"
+        app:layout_constraintTop_toBottomOf="@id/signUpSpinner"
+        app:endFailDrawable="@drawable/baseline_cancel_24"
+        app:endSuccessDrawable="@drawable/baseline_done_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:loadingDrawablePosition="Start"
+        app:radius="50dp"
+        app:shrinkShape="Oval" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
         android:layout_width="wrap_content"
@@ -187,29 +243,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
-
-    <com.flod.loadingbutton.LoadingButton
-        android:id="@+id/signUpLoadingButton"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/custom_green"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="Sign Up"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:enableRestore="true"
-        app:enableShrink="true"
-        app:endSuccessDrawable="@drawable/baseline_done_24"
-        app:loadingDrawablePosition="Start"
-        app:radius="50dp"
-        app:shrinkShape="Oval"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_password"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true"
+        android:clipToPadding="true"
+        android:padding="@dimen/_10sdp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/approvalRecyclerviewRoundedImage"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintRight_toRightOf="@id/approvalRecyclerViewBarrier1"
+            android:src="@drawable/plant_test_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:riv_corner_radius="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/approvalRecyclerViewNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Robbin Plant"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@id/approvalRecyclerViewDescriptionTextView"
+            app:layout_constraintLeft_toLeftOf="@id/approvalRecyclerViewBarrier1"
+            app:layout_constraintTop_toTopOf="@+id/approvalRecyclerviewRoundedImage"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/approvalRecyclerViewDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsbold"
+            android:text="the most widely available form, makes a striking ornamental shrub, It can be grown as a standalone shrub or a hedge, as of plants."
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@id/approvalRecyclerViewPriceTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/approvalRecyclerViewBarrier1"
+            app:layout_constraintTop_toBottomOf="@+id/approvalRecyclerViewNameTextView"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/approvalRecyclerViewPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Rs. 1260"
+            android:textAlignment="textStart"
+            android:textColor="@color/custom_green"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/approvalRecyclerviewRoundedImage"
+            app:layout_constraintLeft_toLeftOf="@id/approvalRecyclerViewBarrier1"
+            app:layout_constraintTop_toBottomOf="@+id/approvalRecyclerViewDescriptionTextView"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/approvalRecyclerViewBarrier1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="approvalRecyclerviewRoundedImage"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
