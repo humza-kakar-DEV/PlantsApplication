@@ -3,6 +3,8 @@ package com.example.plantsservicefyp.repository
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
+import com.example.plantsservicefyp.model.Cart
 import com.example.plantsservicefyp.model.Plant
 import com.example.plantsservicefyp.util.Constants
 import com.example.plantsservicefyp.util.ImageMimeType
@@ -69,6 +71,15 @@ class PlantRepositoryImp @Inject constructor(
 //                failure while uploading
             }
         }
+    }
+
+    override fun addItemToCart(cart: Cart) {
+        firebaseFirestore.collection(Constants.FIRESTORE_CART.value)
+            .document()
+            .set(cart)
+            .addOnFailureListener {
+                Toast.makeText(context, "error ${it.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

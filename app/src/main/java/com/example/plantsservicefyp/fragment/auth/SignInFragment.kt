@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.fragment
+package com.example.plantsservicefyp.fragment.auth
 
 import android.os.Bundle
 import android.util.Log
@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.databinding.FragmentSignInBinding
-import com.example.plantsservicefyp.util.ChangeFragment
+import com.example.plantsservicefyp.util.CurrentUserType
+import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import com.flod.loadingbutton.LoadingButton.OnStatusChangedListener
@@ -35,6 +37,29 @@ class SignInFragment : Fragment() {
     ): View? {
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
+        authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
+            when (it) {
+                is CurrentUserType.Admin -> {
+                    requireContext().toast("admin role")
+                    loadingComplete(ChangeFragment.ADMIN_FRAGMENT)
+                }
+                is CurrentUserType.Buyer -> {
+                    requireContext().toast("buyer role")
+                    loadingComplete(ChangeFragment.BUYER_FRAGMENT)
+                }
+                is CurrentUserType.Seller -> {
+                    requireContext().toast("seller role")
+                    loadingComplete(ChangeFragment.SELLER_FRAGMENT)
+                }
+                is CurrentUserType.Exception -> {
+                    requireContext().toast("current user exception ${it.error.toString()}")
+                }
+                CurrentUserType.Loading -> {
+                    requireContext().toast("current user loading")
+                }
+            }
+        }
+
         authenticationViewModel._observeSignIn.observe(viewLifecycleOwner) {
             when (it) {
                 UiState.Loading -> {
@@ -48,7 +73,7 @@ class SignInFragment : Fragment() {
                         OnStatusChangedListener() {
                         override fun onRestored() {
                             super.onRestored()
-                            sharedViewModel.changeFragment(ChangeFragment.CONTAINER_MAIN_DATA_FRAGMENT)
+                            authenticationViewModel.currentUser()
                         }
                     })
                 }
@@ -69,6 +94,17 @@ class SignInFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun loadingComplete (changeFragment: ChangeFragment) {
+        binding.signInLoadingButton.complete(true)
+        binding.signInLoadingButton.setOnStatusChangedListener(object :
+            OnStatusChangedListener() {
+            override fun onRestored() {
+                super.onRestored()
+                sharedViewModel.changeFragment(changeFragment)
+            }
+        })
     }
 
     //    applying regex

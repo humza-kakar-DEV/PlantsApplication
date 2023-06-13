@@ -1,24 +1,24 @@
 package com.example.plantsservicefyp.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.plantsservicefyp.R
-import com.example.plantsservicefyp.adapter.SpecialOfferRecyclerViewAdapter
+import com.example.plantsservicefyp.adapter.PlantItemsRecyclerViewAdapter
 import com.example.plantsservicefyp.databinding.FragmentHomeBinding
 import com.example.plantsservicefyp.model.Plant
+import com.example.plantsservicefyp.util.constant.ChangeFragment
+import com.example.plantsservicefyp.viewmodel.SharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment(private val homeFragmentCallBack: () -> Unit) : Fragment() {
+
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var binding: FragmentHomeBinding
     private var specialOfferPlantData = listOf<Plant>(
@@ -154,9 +154,18 @@ class HomeFragment(private val homeFragmentCallBack: () -> Unit) : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         var specialOfferRecyclerViewAdapter =
-            SpecialOfferRecyclerViewAdapter(requireContext(), specialOfferPlantData)
+            PlantItemsRecyclerViewAdapter(requireContext()) {
+                sharedViewModel.changeFragment(ChangeFragment.SHOW_PLANT_FRAGMENT)
+            }
+
+        specialOfferRecyclerViewAdapter.updateWithPlants(specialOfferPlantData)
+
         var mostPopularRecyclerViewAdapter =
-            SpecialOfferRecyclerViewAdapter(requireContext(), mostPopularPlantData)
+            PlantItemsRecyclerViewAdapter(requireContext()) {
+                sharedViewModel.changeFragment(ChangeFragment.SHOW_PLANT_FRAGMENT)
+            }
+
+        mostPopularRecyclerViewAdapter.updateWithPlants(specialOfferPlantData)
 
         binding.specialOfferRecyclerView.layoutManager = LinearLayoutManager(context).apply {
             orientation = LinearLayoutManager.HORIZONTAL

@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.fragment
+package com.example.plantsservicefyp.fragment.buyer
 
 import android.app.Activity
 import android.content.Intent
@@ -17,15 +17,14 @@ import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.databinding.FragmentSellPlantBinding
 import com.example.plantsservicefyp.model.Plant
 import com.example.plantsservicefyp.util.UiState
-import com.example.plantsservicefyp.viewmodel.SellPlantFragmentViewModel
-import com.flod.loadingbutton.LoadingButton.OnStatusChangedListener
+import com.example.plantsservicefyp.viewmodel.SellPlantViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SellPlantFragment : Fragment() {
 
     private lateinit var binding: FragmentSellPlantBinding
-    private val sellPlantViewModel: SellPlantFragmentViewModel by viewModels()
+    private val sellPlantViewModel: SellPlantViewModel by viewModels()
 
     private lateinit var plantNameInput: String
     private lateinit var plantDescriptionInput: String
@@ -103,9 +102,6 @@ class SellPlantFragment : Fragment() {
         return if (plantNameInput.isEmpty()) {
             binding.textInputName.setError("Field can't be empty")
             false
-        } else if (plantNameInput.length > 15) {
-            binding.textInputName.setError("Username too long")
-            false
         } else {
             binding.textInputName.setError(null)
             true
@@ -118,9 +114,6 @@ class SellPlantFragment : Fragment() {
         return if (plantDescriptionInput.isEmpty()) {
             binding.textInputDescription.setError("Field can't be empty")
             false
-        } else if (plantDescriptionInput.length > 15) {
-            binding.textInputDescription.setError("Username too long")
-            false
         } else {
             binding.textInputDescription.setError(null)
             true
@@ -132,9 +125,6 @@ class SellPlantFragment : Fragment() {
         return if (plantPriceInput.isEmpty()) {
             binding.textInputPrice.setError("Field can't be empty")
             false
-        } else if (plantPriceInput.length > 15) {
-            binding.textInputPrice.setError("Username too long")
-            false
         } else {
             binding.textInputPrice.setError(null)
             true
@@ -145,9 +135,6 @@ class SellPlantFragment : Fragment() {
         plantLocationInput = binding.textInputPrice.getEditText()?.getText().toString().trim()
         return if (plantLocationInput.isEmpty()) {
             binding.textInputLocation.setError("Field can't be empty")
-            false
-        } else if (plantLocationInput.length > 15) {
-            binding.textInputLocation.setError("Username too long")
             false
         } else {
             binding.textInputLocation.setError(null)

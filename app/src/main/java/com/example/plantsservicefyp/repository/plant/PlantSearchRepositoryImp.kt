@@ -6,6 +6,7 @@ import com.example.plantsservicefyp.model.Plant
 import com.example.plantsservicefyp.util.Constants
 import com.example.plantsservicefyp.util.UiState
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
@@ -18,17 +19,12 @@ class PlantSearchRepositoryImp @Inject constructor(
     private val firebaseStorage: FirebaseStorage,
 ) : PlantSearchRepository {
 
-    override fun getAllPlants(callback: (UiState<List<Plant>>) -> Unit) {
+    override fun getAllPlants(callback: (UiState<List<DocumentSnapshot>>) -> Unit) {
         callback(UiState.Loading)
         firebaseFirestore.collection(Constants.FIRESTORE_PLANT.value)
             .get()
             .addOnSuccessListener {
-                var plantList = mutableListOf<Plant>()
-                for (document in it) {
-                    var plant = document.toObject<Plant>()
-                    plantList.add(plant)
-                }
-                callback(UiState.Success<List<Plant>>(plantList))
+                callback(UiState.Success(it.documents))
             }
             .addOnFailureListener {
                 callback(UiState.Error(it.message))

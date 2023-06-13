@@ -71,7 +71,7 @@ class ContainerMainData : Fragment() {
             )
             .commit()
 
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {item ->
             when (item.itemId) {
                 R.id.home_tab -> {
                     requireActivity().supportFragmentManager
@@ -81,16 +81,14 @@ class ContainerMainData : Fragment() {
                 }
                 R.id.favourite_tab -> {
                 }
-                R.id.sell_tab -> {
+                R.id.cart_tab -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
                         .replace(
                             binding.mainDataFrameLayout.id,
-                            SellPlantFragment()
+                            CartFragment()
                         )
                         .commit()
-                }
-                R.id.cart_tab -> {
                 }
                 R.id.profile_tab -> {
                 }

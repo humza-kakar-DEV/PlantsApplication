@@ -1,8 +1,6 @@
-package com.example.plantsservicefyp.fragment
+package com.example.plantsservicefyp.fragment.auth
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -14,9 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.databinding.FragmentSignUpBinding
 import com.example.plantsservicefyp.model.User
-import com.example.plantsservicefyp.util.ChangeFragment
-import com.example.plantsservicefyp.util.PasswordPattern
+import com.example.plantsservicefyp.util.CurrentUserType
+import com.example.plantsservicefyp.util.constant.ChangeFragment
+import com.example.plantsservicefyp.util.constant.FirebaseAuthRolesConstants
 import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.log
+import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import com.flod.loadingbutton.LoadingButton.OnStatusChangedListener
@@ -41,6 +42,31 @@ class SignUpFragment : Fragment() {
     ): View? {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
+        authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
+            when (it) {
+                is CurrentUserType.Admin -> {
+                    requireContext().toast("admin role")
+                    loadingComplete(ChangeFragment.ADMIN_FRAGMENT)
+                }
+                is CurrentUserType.Buyer -> {
+                    requireContext().toast("buyer role")
+                    requireContext().log("sign up fragment: buyer role")
+                    loadingComplete(ChangeFragment.BUYER_FRAGMENT)
+                }
+                is CurrentUserType.Seller -> {
+                    requireContext().toast("seller role")
+                    loadingComplete(ChangeFragment.SELLER_FRAGMENT)
+                }
+                CurrentUserType.Loading -> {
+                    requireContext().toast("current user loading")
+                }
+                is CurrentUserType.Exception -> {
+                    requireContext().toast("exception ${it.error.toString()}")
+                    binding.signUpLoadingButton.complete(false)
+                }
+            }
+        }
+
         authenticationViewModel._observeSignUp.observe(viewLifecycleOwner) {
             when (it) {
                 UiState.Loading -> {
@@ -48,17 +74,11 @@ class SignUpFragment : Fragment() {
                     binding.signUpLoadingButton.start()
                 }
                 is UiState.Success -> {
-                    Log.d("hm123", "signup -> success: ${it.data?.user?.uid}")
-                    binding.signUpLoadingButton.complete(true)
-                    binding.signUpLoadingButton.setOnStatusChangedListener(object :
-                        OnStatusChangedListener() {
-                        override fun onRestored() {
-                            super.onRestored()
-                            sharedViewModel.changeFragment(ChangeFragment.CONTAINER_MAIN_DATA_FRAGMENT)
-                        }
-                    })
+                    requireContext().log("sign up fragment: success")
+                    authenticationViewModel.currentUser()
                 }
                 is UiState.Error -> {
+                    binding.signUpLoadingButton.complete(false)
                     Log.d("hm123", "signup -> error: ${it.exception}")
                     Toast.makeText(context, "${it.exception}", Toast.LENGTH_SHORT).show()
                 }
@@ -70,18 +90,34 @@ class SignUpFragment : Fragment() {
                 return@returnOnClick
             }
             User(
-                id = "",
                 name = usernameInput,
                 phoneNumber = phoneNumber,
                 email = emailInput,
                 password = passwordInput
             ).apply {
-                authenticationViewModel.signUp(user = this)
+                authenticationViewModel.signUp(
+                    firebaseAuthRolesConstants = FirebaseAuthRolesConstants.FIRESTORE_ADMIN,
+                    user = this
+                )
             }
         }
 
         return binding.root
     }
+
+    private fun loadingComplete (changeFragment: ChangeFragment) {
+        binding.signUpLoadingButton.complete(true)
+        binding.signUpLoadingButton.setOnStatusChangedListener(object :
+            OnStatusChangedListener() {
+            override fun onRestored() {
+                super.onRestored()
+                sharedViewModel.changeFragment(changeFragment)
+            }
+        })
+    }
+
+
+
 
     private fun validateUsername(): Boolean {
         usernameInput = binding.textInputName.getEditText()?.getText().toString().trim()

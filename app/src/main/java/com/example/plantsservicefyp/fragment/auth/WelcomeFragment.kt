@@ -1,24 +1,21 @@
 package com.example.plantsservicefyp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.example.plantsservicefyp.activity.MainActivity
 import com.example.plantsservicefyp.databinding.FragmentWelcomeBinding
-import com.example.plantsservicefyp.util.ChangeFragment
+import com.example.plantsservicefyp.util.CurrentUserType
+import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.log
+import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.currentCoroutineContext
 
 @AndroidEntryPoint
 class WelcomeFragment() : Fragment() {
@@ -40,10 +37,23 @@ class WelcomeFragment() : Fragment() {
 
         authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
             when (it) {
-                UiState.FirebaseAuthState.LoggedIn -> {
-                    sharedViewModel.changeFragment(ChangeFragment.CONTAINER_MAIN_DATA_FRAGMENT)
+                is CurrentUserType.Admin -> {
+                    requireContext().toast("admin role")
+                    sharedViewModel.changeFragment(ChangeFragment.ADMIN_FRAGMENT)
                 }
-                UiState.FirebaseAuthState.LoggedOut -> {
+                is CurrentUserType.Buyer -> {
+                    requireContext().toast("buyer role")
+                    sharedViewModel.changeFragment(ChangeFragment.BUYER_FRAGMENT)
+                }
+                is CurrentUserType.Seller -> {
+                    requireContext().toast("seller role")
+                    sharedViewModel.changeFragment(ChangeFragment.SELLER_FRAGMENT)
+                }
+                CurrentUserType.Loading -> {
+                    requireContext().toast("current user loading")
+                }
+                is CurrentUserType.Exception -> {
+                    requireContext().toast("current user exception ${it.error.toString()}")
                     sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
                 }
             }

@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.plantsservicefyp.R
-import com.example.plantsservicefyp.adapter.SpecialOfferRecyclerViewAdapter
 import com.example.plantsservicefyp.databinding.FragmentSearchBinding
-import com.example.plantsservicefyp.databinding.FragmentSeeAllBinding
 
 class SearchFragment : Fragment() {
 
