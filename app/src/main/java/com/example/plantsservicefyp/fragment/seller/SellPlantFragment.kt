@@ -1,28 +1,29 @@
 package com.example.plantsservicefyp.fragment.seller
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.databinding.FragmentSellPlantBinding
-import com.example.plantsservicefyp.model.Plant
-import com.example.plantsservicefyp.util.CurrentUserType
-import com.example.plantsservicefyp.util.UiState
-import com.example.plantsservicefyp.util.log
-import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.model.firebase.Plant
+import com.example.plantsservicefyp.util.*
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SellPlantViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.ktor.client.request.*
 
 @AndroidEntryPoint
 class SellPlantFragment : Fragment() {
@@ -35,15 +36,22 @@ class SellPlantFragment : Fragment() {
     private lateinit var plantDescriptionInput: String
     private lateinit var plantPriceInput: String
     private lateinit var plantLocationInput: String
-    private var plantCategory: String? = null
     private var imageUri: Uri? = null
+    private var plantCategory: String = ""
+    private var base64Encode: String = ""
     private lateinit var sellerId: String
+    private lateinit var createAlertDialog: AlertDialog
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSellPlantBinding.inflate(layoutInflater, container, false)
+
+        activity?.createAlertDialog()?.let {
+            createAlertDialog = it
+        }
 
         authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
             when (it) {
@@ -51,7 +59,9 @@ class SellPlantFragment : Fragment() {
                     sellerId = it.user.userId.toString()
                     context?.log("sell plant fragment -> user id:" + it.user.userId.toString())
                 }
-                else -> {"irrelevant id's"}
+                else -> {
+                    "irrelevant id's"
+                }
             }
         }
 
@@ -65,8 +75,8 @@ class SellPlantFragment : Fragment() {
                     requireContext().log(it.data.toString())
                     binding.createLoadingButton.complete(true)
                 }
-                is UiState.Error -> {
-                    requireContext().log("sell plant: ${it.exception.toString()}")
+                is UiState.Exception -> {
+                    requireContext().log("sell plant: ${it.message.toString()}")
                 }
             }
         }
@@ -89,7 +99,8 @@ class SellPlantFragment : Fragment() {
                 location = plantLocationInput,
                 sellerId = sellerId,
                 imageDownloadUrl = null,
-                plantCategory = plantCategory?:""
+                plantCategory = plantCategory ?: "",
+                plantState = false
             ).apply {
                 sellPlantViewModel.addPlant(plant = this, imageUri = imageUri!!)
             }
@@ -116,6 +127,51 @@ class SellPlantFragment : Fragment() {
 
         binding.sellAllPlantSpinner.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
             plantCategory = newItem
+        }
+
+        binding.aiAssistantButton.setOnClickListener {
+            if (imageUri == null) {
+                context?.toast("select image first!")
+            } else {
+                sellPlantViewModel.indentifyPlant(mutableListOf(imageUri!!))
+            }
+        }
+
+        sellPlantViewModel._observePlantIndentification.observe(viewLifecycleOwner) {
+            when (it) {
+                UiState.Loading -> {
+                    context?.log("api loading")
+                    createAlertDialog.show()
+                }
+                is UiState.Success -> {
+                    context?.log("api test data: ${it.data!!}")
+                    it.data?.suggestions?.map {
+                        it.plant_details
+                    }!!.first().apply {
+                        binding.textInputName.editText?.setText(this.scientific_name)
+                        binding.textInputDescription.editText?.setText(this.wiki_description.value)
+                    }
+                    Thread(Runnable {
+                        Handler(
+                            Looper.getMainLooper()
+                        ).postDelayed(
+                            Runnable {
+                                     createAlertDialog.cancel()
+                        }, 2000)
+                    }).start()
+                }
+                is UiState.Exception -> {
+                    context?.log("api data: ${it.message}")
+                    Thread(Runnable {
+                        Handler(
+                            Looper.getMainLooper()
+                        ).postDelayed(
+                            Runnable {
+                                createAlertDialog.cancel()
+                            }, 2000)
+                    }).start()
+                }
+            }
         }
 
         return binding.root

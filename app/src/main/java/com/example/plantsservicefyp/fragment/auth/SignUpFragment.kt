@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.databinding.FragmentSignUpBinding
-import com.example.plantsservicefyp.model.User
+import com.example.plantsservicefyp.model.firebase.User
 import com.example.plantsservicefyp.util.CurrentUserType
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.constant.FirebaseAuthRolesConstants
@@ -35,6 +35,7 @@ class SignUpFragment : Fragment() {
     private lateinit var phoneNumber: String
     private lateinit var emailInput: String
     private lateinit var passwordInput: String
+    private lateinit var authRole: FirebaseAuthRolesConstants
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +68,23 @@ class SignUpFragment : Fragment() {
             }
         }
 
+        binding.signUpSpinner.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
+            when (newItem) {
+                "admin" -> {
+                    context?.toast("admin")
+                    authRole = FirebaseAuthRolesConstants.FIRESTORE_ADMIN
+                }
+                "buyer" -> {
+                    context?.toast("buyer")
+                    authRole = FirebaseAuthRolesConstants.FIRESTORE_BUYER
+                }
+                "seller" -> {
+                    context?.toast("seller")
+                    authRole = FirebaseAuthRolesConstants.FIRESTORE_SELLER
+                }
+            }
+        }
+
         authenticationViewModel._observeSignUp.observe(viewLifecycleOwner) {
             when (it) {
                 UiState.Loading -> {
@@ -77,10 +95,10 @@ class SignUpFragment : Fragment() {
                     requireContext().log("sign up fragment: success")
                     authenticationViewModel.currentUser()
                 }
-                is UiState.Error -> {
+                is UiState.Exception -> {
                     binding.signUpLoadingButton.complete(false)
-                    Log.d("hm123", "signup -> error: ${it.exception}")
-                    Toast.makeText(context, "${it.exception}", Toast.LENGTH_SHORT).show()
+                    Log.d("hm123", "signup -> error: ${it.message}")
+                    Toast.makeText(context, "${it.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -96,7 +114,7 @@ class SignUpFragment : Fragment() {
                 password = passwordInput
             ).apply {
                 authenticationViewModel.signUp(
-                    firebaseAuthRolesConstants = FirebaseAuthRolesConstants.FIRESTORE_SELLER,
+                    firebaseAuthRolesConstants = authRole,
                     user = this
                 )
             }

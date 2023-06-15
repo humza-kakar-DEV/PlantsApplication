@@ -1,21 +1,19 @@
 package com.example.plantsservicefyp.viewmodel
 
-import android.app.appsearch.observer.ObserverCallback
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.plantsservicefyp.model.User
+import com.example.plantsservicefyp.model.firebase.User
 import com.example.plantsservicefyp.repository.authentication.AuthenticationRepository
 import com.example.plantsservicefyp.util.CurrentUserType
 import com.example.plantsservicefyp.util.constant.FirebaseAuthRolesConstants
 import com.example.plantsservicefyp.util.UiState
 import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthenticationViewModel @Inject() constructor(
+class AuthenticationViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository
 ) : ViewModel() {
 

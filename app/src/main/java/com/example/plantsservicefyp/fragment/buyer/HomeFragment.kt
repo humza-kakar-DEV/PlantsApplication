@@ -61,8 +61,8 @@ class HomeFragment() : Fragment() {
                         }
                     }
                 }
-                is UiState.Error -> {
-                    Log.d("hm123", "see all fragment error -> ${it.exception}")
+                is UiState.Exception -> {
+                    Log.d("hm123", "see all fragment error -> ${it.message}")
                 }
             }
         }

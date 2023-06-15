@@ -1,7 +1,6 @@
 package com.example.plantsservicefyp.fragment.buyer
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantsservicefyp.adapter.CartRecyclerViewAdapter
 import com.example.plantsservicefyp.databinding.FragmentCartBinding
-import com.example.plantsservicefyp.model.Plant
+import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.CurrentUserType
 import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.constant.ChangeFragment
@@ -21,7 +20,6 @@ import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.CartViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.protobuf.Value
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -70,7 +68,7 @@ class CartFragment : Fragment() {
                         context?.log("cart items: emptyList()")
                     }
                 }
-                is UiState.Error -> {
+                is UiState.Exception -> {
 
                 }
             }
@@ -111,16 +109,22 @@ class CartFragment : Fragment() {
                         context?.log("plant list: emptyList()")
                     }
                 }
-                is UiState.Error -> {
+                is UiState.Exception -> {
                     requireContext().log("cart fragment: exception")
                 }
             }
         }
 
         binding.cartFragmentProceedToCheckButton.setOnClickListener {
-            context?.toast("check out!!!")
-            sharedViewModel.changeFragment(ChangeFragment.PAYMENT_FRAGMENT)
-            sharedViewModel.setTotalPrice(totalPrice.toString())
+            if (totalPrice != 0) {
+                context?.toast("check out!!!")
+                sharedViewModel.changeFragment(ChangeFragment.PAYMENT_FRAGMENT)
+                sharedViewModel.setTotalPrice(totalPrice.toString())
+                sharedViewModel.setBoughtItems(cartItems)
+                cartViewModel.deleteAllCartItems(cartItems = cartItems)
+            } else {
+                context?.toast("empty cart :(")
+            }
         }
 
         binding.cartFragmentRecyclerView.layoutManager =

@@ -37,12 +37,11 @@
         android:background="@drawable/plant_edit_image_background"
         android:scaleType="centerCrop"
         android:src="@drawable/seller_panel_image_3"
-        app:layout_constraintBottom_toTopOf="@id/aiAssistantTextView1"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout1"
         app:layout_constraintTop_toBottomOf="@+id/coordinatorLayout2"
-        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed"
         app:riv_corner_radius="@dimen/_15sdp" />
 
@@ -57,81 +56,118 @@
         app:layout_constraintEnd_toEndOf="@+id/roundImageView"
         app:layout_constraintTop_toBottomOf="@+id/roundImageView" />
 
-    <TextView
-        android:id="@+id/aiAssistantTextView1"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout1"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
-        android:background="@drawable/ai_text_background"
-        android:fontFamily="@font/poppinsbold"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/_2sdp"
-        app:layout_constraintTop_toBottomOf="@id/imageEidButton"
-        android:paddingRight="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_2sdp"
-        android:text="Ai assistant"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:textAlignment="textStart"
-        android:textColor="@color/white"
-        android:textSize="12sp"
+        android:background="@drawable/seller_fragment_circle_layout"
         app:layout_constraintBottom_toTopOf="@+id/text_input_name"
-        app:layout_constraintStart_toStartOf="@+id/text_input_name" />
+        app:layout_constraintStart_toStartOf="@+id/guideline">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/nameRoundImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/seller_fragment_circle_layout"
+            android:padding="@dimen/_3sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ai_robot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:riv_corner_radius="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/aiAssistantTextView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsregular"
+            android:text="ai assistant"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/nameRoundImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameRoundImage"
+            app:layout_constraintTop_toTopOf="@+id/nameRoundImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/black"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
         app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-        app:boxCornerRadiusTopStart="@dimen/_10sdp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        android:textColorHint="@color/custom_green"
-        app:layout_constraintVertical_chainStyle="packed"
         app:errorEnabled="true"
-        app:hintTextColor="@color/custom_green"
-        app:layout_constraintBottom_toTopOf="@+id/aiAssistantTextView2"
+        app:hintTextColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/roundImageView"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/aiAssistantTextView1">
+        app:layout_constraintVertical_chainStyle="packed"
+        app:startIconDrawable="@drawable/name_icon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:textSize="@dimen/_12sdp"
-            android:textColorHint="@color/custom_green"
             android:background="@drawable/ai_assistant_text_field_background"
-            android:inputType="text" />
+            android:hint="Name"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textSize="@dimen/_12sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/aiAssistantTextView2"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
-        android:background="@drawable/ai_text_background"
-        android:fontFamily="@font/poppinsbold"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/_2sdp"
-        android:paddingRight="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_2sdp"
-        android:text="Ai assistant"
-        app:hintTextColor="@color/custom_green"
-        android:textAlignment="textStart"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toBottomOf="@id/text_input_name"
+        android:background="@drawable/seller_fragment_circle_layout"
         app:layout_constraintBottom_toTopOf="@id/text_input_description"
-        app:layout_constraintStart_toStartOf="@+id/text_input_description" />
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/guideline">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/descriptionRoundImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/seller_fragment_circle_layout"
+            android:padding="@dimen/_3sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ai_robot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:riv_corner_radius="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/aiAssistantTextView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsregular"
+            android:text="ai assistant"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/descriptionRoundImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/descriptionRoundImage"
+            app:layout_constraintTop_toTopOf="@+id/descriptionRoundImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/custom_green"
+        android:textColorHint="@color/black"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
         app:boxCornerRadiusTopEnd="@dimen/_10sdp"
@@ -139,12 +175,14 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:errorEnabled="true"
+        app:hintTextColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/text_input_price"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/aiAssistantTextView2"
-        app:layout_constraintVertical_chainStyle="packed">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:startIconDrawable="@drawable/description_icon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -152,7 +190,7 @@
             android:background="@drawable/ai_assistant_text_field_background"
             android:hint="Description"
             android:inputType="text"
-            android:textColorHint="@color/custom_green"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/_12sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -168,7 +206,9 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:errorEnabled="true"
-        android:textColorHint="@color/custom_green"
+        app:startIconDrawable="@drawable/price_icon"
+        android:textColorHint="@color/black"
+        app:hintTextColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/text_input_location"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -180,6 +220,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Price"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/_12sdp"
             android:inputType="number" />
 
@@ -189,7 +230,7 @@
         android:id="@+id/text_input_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/custom_green"
+        android:textColorHint="@color/black"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
         app:boxCornerRadiusTopEnd="@dimen/_10sdp"
@@ -197,6 +238,8 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:errorEnabled="true"
+        app:hintTextColor="@color/black"
+        app:startIconDrawable="@drawable/location_icon"
         app:layout_constraintBottom_toTopOf="@id/sellAllPlantSpinner"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -209,6 +252,7 @@
             android:layout_height="wrap_content"
             android:hint="Location"
             android:inputType="text"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/_12sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>

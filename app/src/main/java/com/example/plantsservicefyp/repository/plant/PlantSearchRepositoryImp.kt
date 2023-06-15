@@ -2,17 +2,13 @@ package com.example.plantsservicefyp.repository.plant
 
 import android.content.Context
 import android.util.Log
-import com.example.plantsservicefyp.model.Cart
-import com.example.plantsservicefyp.model.Plant
+import com.example.plantsservicefyp.model.firebase.Cart
 import com.example.plantsservicefyp.util.constant.FirebaseConstants
 import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.log
-import com.example.plantsservicefyp.util.toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestoreSettings
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -38,15 +34,36 @@ class PlantSearchRepositoryImp @Inject constructor(
         firebaseFirestore.collection(FirebaseConstants.FIRESTORE_PLANT.value)
             .get()
             .addOnSuccessListener {
-                callback(UiState.Success(it.documents))
+                if (!it.isEmpty) {
+                    callback(UiState.Success(it.documents))
+                } else {
+                    callback(UiState.Success(emptyList()))
+                }
             }
             .addOnFailureListener {
-                callback(UiState.Error(it.message))
+                callback(UiState.Exception(it.message))
                 Log.d("hm123", "exception: ${it.message}")
             }
     }
 
-    override fun getCartItems(buyerId: String, plantList: (UiState<List<DocumentSnapshot>>) -> Unit, cartItems: (UiState<List<DocumentSnapshot>>) -> Unit) {
+    override fun getApprovedPlants(callback: (UiState<List<DocumentSnapshot>>) -> Unit) {
+        callback(UiState.Loading)
+        firebaseFirestore.collection(FirebaseConstants.FIRESTORE_PLANT.value)
+            .whereEqualTo("plantState", true)
+            .get()
+            .addOnSuccessListener {
+                callback(UiState.Success(it.documents))
+            }
+            .addOnFailureListener {
+                callback(UiState.Exception(it.message))
+            }
+    }
+
+    override fun getCartItems(
+        buyerId: String,
+        plantList: (UiState<List<DocumentSnapshot>>) -> Unit,
+        cartItems: (UiState<List<DocumentSnapshot>>) -> Unit
+    ) {
         var plantList = mutableListOf<DocumentSnapshot>()
         lateinit var listCompleteCallBack: () -> Unit
         context?.log("started")
@@ -84,7 +101,7 @@ class PlantSearchRepositoryImp @Inject constructor(
                 }
             }
             .addOnFailureListener {
-                plantList(UiState.Error(it.message))
+                plantList(UiState.Exception(it.message))
             }
     }
 
@@ -100,7 +117,7 @@ class PlantSearchRepositoryImp @Inject constructor(
                 callback(UiState.Success(it.documents))
             }
             .addOnFailureListener {
-                callback(UiState.Error(it.message))
+                callback(UiState.Exception(it.message))
             }
     }
 
@@ -122,7 +139,7 @@ class PlantSearchRepositoryImp @Inject constructor(
             }
             .addOnFailureListener {
                 context.log("plant search: ${it.message.toString()}")
-                callback(UiState.Error(it.message))
+                callback(UiState.Exception(it.message))
             }
     }
 
@@ -137,6 +154,18 @@ class PlantSearchRepositoryImp @Inject constructor(
             .addOnFailureListener {
                 context?.log("delete exception: ${it.message}")
             }
+    }
+
+    override fun deleteAllCartItems(cartItems: List<DocumentSnapshot>) {
+        cartItems.forEach { cartItem ->
+            firebaseFirestore
+                .collection(FirebaseConstants.FIRESTORE_CART.value)
+                .document(cartItem.id)
+                .delete()
+                .addOnSuccessListener {
+                    context?.log("delete all id: ${cartItem.id}")
+                }
+        }
     }
 
 }

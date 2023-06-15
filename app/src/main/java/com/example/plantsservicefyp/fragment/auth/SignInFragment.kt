@@ -77,9 +77,9 @@ class SignInFragment : Fragment() {
                         }
                     })
                 }
-                is UiState.Error -> {
-                    Log.d("hm123", "sign in -> error: ${it.exception}")
-                    Toast.makeText(requireContext(), "error: ${it.exception}", Toast.LENGTH_SHORT)
+                is UiState.Exception -> {
+                    Log.d("hm123", "sign in -> error: ${it.message}")
+                    Toast.makeText(requireContext(), "error: ${it.message}", Toast.LENGTH_SHORT)
                         .show()
                     binding.signInLoadingButton.complete(false)
                 }

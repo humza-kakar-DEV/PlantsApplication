@@ -4,14 +4,12 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.plantsservicefyp.repository.plant.PlantSearchRepository
 import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,6 +30,10 @@ class SharedViewModel @Inject constructor(
     val _observeTotalPrice: LiveData<String>
         get() = observeTotalPrice
 
+    private var observeBoughtItems = MutableLiveData<List<DocumentSnapshot>>()
+    val _observeBoughtItems: LiveData<List<DocumentSnapshot>>
+        get() = observeBoughtItems
+
     fun changeFragment(_changeFragment: ChangeFragment) {
         observeChangeFragment.value = _changeFragment
     }
@@ -49,8 +51,12 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun setTotalPrice (price: String) {
+    fun setTotalPrice(price: String) {
         observeTotalPrice.value = price
+    }
+
+    fun setBoughtItems(boughtItems: List<DocumentSnapshot>) {
+        observeBoughtItems.value = boughtItems
     }
 
 }

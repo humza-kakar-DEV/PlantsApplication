@@ -1,23 +1,26 @@
 package com.example.plantsservicefyp.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.databinding.ActivityMainBinding
 import com.example.plantsservicefyp.fragment.admin.ApprovalFragment
 import com.example.plantsservicefyp.fragment.auth.ContainerAuthenticationFragment
-import com.example.plantsservicefyp.fragment.buyer.ContainerMainData
-import com.example.plantsservicefyp.fragment.seller.SellPlantFragment
-import com.example.plantsservicefyp.fragment.buyer.ShowPlantFragment
 import com.example.plantsservicefyp.fragment.auth.WelcomeFragment
+import com.example.plantsservicefyp.fragment.buyer.ContainerMainData
 import com.example.plantsservicefyp.fragment.buyer.PaymentFragment
+import com.example.plantsservicefyp.fragment.buyer.ShowPlantFragment
+import com.example.plantsservicefyp.fragment.seller.SellPlantFragment
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.log
-import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

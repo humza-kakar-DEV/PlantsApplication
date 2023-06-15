@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plantsservicefyp.R
-import com.example.plantsservicefyp.model.Plant
-import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.model.firebase.Plant
+import com.example.plantsservicefyp.util.alterText
 import com.google.firebase.firestore.DocumentSnapshot
 
 class CartRecyclerViewAdapter(
@@ -42,7 +41,7 @@ class CartRecyclerViewAdapter(
                 .placeholder(R.drawable.baseline_file_download_24)
                 .into(viewHolder.plantImageView)
             viewHolder.plantNameTextView.text = name
-            viewHolder.plantDescriptionTextView.text = description
+            viewHolder.plantDescriptionTextView.text = context.alterText(description!!)
             viewHolder.plantPriceTextView.text = "Rs. ${price}"
             viewHolder.plantImageView.setOnClickListener {
                 callback(position)

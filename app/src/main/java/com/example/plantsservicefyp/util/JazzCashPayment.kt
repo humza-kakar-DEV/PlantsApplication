@@ -7,15 +7,19 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.example.plantsservicefyp.util.constant.AppConstants
 import java.io.UnsupportedEncodingException
+import java.lang.Exception
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-open class JazzCashPayment(
+@Singleton
+open class JazzCashPayment @Inject constructor(
     private var context: Context,
 ) {
 
@@ -244,10 +248,11 @@ open class JazzCashPayment(
                     }
                 }
 
-                context.toast("JazzCashPayment: payment succeeded!!!")
                 context.log("JazzCashPayment: payment succeeded!!!")
-//                sending success broadcast
-                context.sendBroadcast(i)
+
+//              NOTE: PAYMENT WAS SUCCESS NOTIFY UI ABOUT IT
+                context.sendBroadcast(Intent(AppConstants.JAZZ_CASH_PAYMENT_RESPONSE.value))
+
                 return
             }
         }
@@ -282,3 +287,4 @@ open class JazzCashPayment(
     }
 
 }
+

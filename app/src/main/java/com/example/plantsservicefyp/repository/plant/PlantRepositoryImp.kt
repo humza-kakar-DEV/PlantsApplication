@@ -2,17 +2,24 @@ package com.example.plantsservicefyp.repository.plant
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
-import com.example.plantsservicefyp.model.Cart
-import com.example.plantsservicefyp.model.Plant
+import androidx.annotation.RequiresApi
+import com.example.apitesting.model.reponse.PlantsIdentification
+import com.example.plantsservicefyp.PlantRequest
+import com.example.plantsservicefyp.model.firebase.Cart
+import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.FirebaseConstants
 import com.example.plantsservicefyp.util.ImageMimeType
 import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.base64EncodeFromUri
 import com.example.plantsservicefyp.util.log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,6 +29,7 @@ class PlantRepositoryImp @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseStorage: FirebaseStorage,
     private val imageMimeType: ImageMimeType,
+    private val plantRequest: PlantRequest,
     @ApplicationContext val context: Context,
 ) : PlantRepository {
 
@@ -41,7 +49,7 @@ class PlantRepositoryImp @Inject constructor(
                         callback(UiState.Success(plant))
                     }
                     .addOnFailureListener {
-                        callback(UiState.Error(it.message))
+                        callback(UiState.Exception(it.message))
                     }
             }
         }
@@ -83,6 +91,21 @@ class PlantRepositoryImp @Inject constructor(
             .addOnFailureListener {
                 Toast.makeText(context, "error ${it.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun indentifyPlant(imageList: List<Uri>): PlantsIdentification {
+        return withContext(Dispatchers.IO) {
+            var image64List = mutableListOf<String>()
+            imageList.forEach {
+                it.base64EncodeFromUri(
+                    context
+                )?.let {
+                    image64List.add(it)
+                }
+            }
+            plantRequest.plantDetails(image64List)
+        }
     }
 
 }

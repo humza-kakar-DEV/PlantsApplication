@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plantsservicefyp.R
-import com.example.plantsservicefyp.model.Plant
+import com.example.plantsservicefyp.model.firebase.Plant
 import com.google.firebase.firestore.DocumentSnapshot
 
 class PlantItemsRecyclerViewAdapter (

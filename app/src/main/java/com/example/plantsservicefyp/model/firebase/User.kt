@@ -1,4 +1,4 @@
-package com.example.plantsservicefyp.model
+package com.example.plantsservicefyp.model.firebase
 
 data class User(
     var userId: String = "",
