@@ -12,7 +12,7 @@
       android:fillColor="#3f3d56"/>
   <path
       android:pathData="M396.84,323.46m-61.19,0a61.19,61.19 0,1 1,122.37 0a61.19,61.19 0,1 1,-122.37 0"
-      android:fillColor="#6c63ff"/>
+      android:fillColor="@color/custom_green"/>
   <path
       android:pathData="M396.28,434.11L396.79,323.13"
       android:strokeWidth="2"
@@ -26,7 +26,7 @@
       android:fillColor="#3f3d56"/>
   <path
       android:pathData="M140.52,200.62m-61.19,0a61.19,61.19 0,1 1,122.37 0a61.19,61.19 0,1 1,-122.37 0"
-      android:fillColor="#6c63ff"/>
+      android:fillColor="@color/custom_green"/>
   <path
       android:pathData="M137.06,426.5L140.58,200.55"
       android:strokeWidth="2"
@@ -48,7 +48,7 @@
       android:fillColor="#3f3d56"/>
   <path
       android:pathData="M272.1,64.79m-61.19,0a61.19,61.19 0,1 1,122.37 0a61.19,61.19 0,1 1,-122.37 0"
-      android:fillColor="#6c63ff"/>
+      android:fillColor="@color/custom_green"/>
   <path
       android:pathData="M272.14,435.22L272.14,65.01"
       android:strokeWidth="2"
@@ -99,7 +99,7 @@
       android:fillColor="#3f3d56"/>
   <path
       android:pathData="M273,617c107.14,0 194,-86.86 194,-194h-388C79,530.14 165.86,617 273,617Z"
-      android:fillColor="#6c63ff"/>
+      android:fillColor="@color/custom_green"/>
   <path
       android:pathData="M823.78,504.56c95.61,-48.36 133.91,-165.07 85.55,-260.68L563.1,419.01C611.47,514.62 728.18,552.92 823.78,504.56Z"
       android:fillColor="#3f3d56"/>
@@ -217,11 +217,11 @@
       android:pathData="M760.66,308.47L756.99,197.54"
       android:strokeWidth="2"
       android:fillColor="#00000000"
-      android:strokeColor="#6c63ff"/>
+      android:strokeColor="@color/custom_green"/>
   <path
       android:pathData="M756.99,197.54m-15.7,0a15.7,15.7 0,1 1,31.39 0a15.7,15.7 0,1 1,-31.39 0"
-      android:fillColor="#6c63ff"/>
+      android:fillColor="@color/custom_green"/>
   <path
       android:pathData="M759.25,265.91s-3.84,-48.12 -49.59,-41"
-      android:fillColor="#6c63ff"/>
+      android:fillColor="@color/custom_green"/>
 </vector>

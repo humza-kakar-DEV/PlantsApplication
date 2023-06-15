@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.repository.plant.PlantSearchRepository
 import com.example.plantsservicefyp.util.UiState
 import com.google.firebase.firestore.DocumentSnapshot
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class ApprovalViewModel @Inject constructor(
     private val plantSearchRepository: PlantSearchRepository,
     private @ApplicationContext var context: Context,
-): ViewModel() {
+) : ViewModel() {
 
     private var observeAllPlants = MutableLiveData<UiState<List<DocumentSnapshot>>>()
     val _observeAllPlants: LiveData<UiState<List<DocumentSnapshot>>>
@@ -24,9 +25,19 @@ class ApprovalViewModel @Inject constructor(
             return observeAllPlants
         }
 
+    private var observePlantState = MutableLiveData<UiState<String>>()
+    val _observePlantState: LiveData<UiState<String>>
+        get() = observePlantState
+
     fun getAllPlants() {
         plantSearchRepository.getAllPlants {
             observeAllPlants.value = it
+        }
+    }
+
+    fun editPlantState(plant: Plant) {
+        plantSearchRepository.editPlantState(plant) {
+            observePlantState.value = it
         }
     }
 

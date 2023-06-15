@@ -29,11 +29,11 @@ internal fun Context.alterText(description: String): String {
     if (numWords > 10) {
         var stringBuilder = StringBuilder()
         description.split(" ").forEachIndexed { index, s ->
-            if (index <= 10) {
+            if (index <= 15) {
                 stringBuilder.append("${s} ")
             }
         }
-        stringBuilder.append("...")
+        stringBuilder.append("....")
         return stringBuilder.toString()
     } else {
         return description

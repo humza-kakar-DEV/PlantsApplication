@@ -1,7 +1,9 @@
 package com.example.plantsservicefyp.repository.plant
 
+import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.UiState
 import com.google.firebase.firestore.DocumentSnapshot
+import org.w3c.dom.Document
 
 interface PlantSearchRepository {
     fun getAllPlants(callback: (UiState<List<DocumentSnapshot>>) -> Unit)
@@ -16,6 +18,8 @@ interface PlantSearchRepository {
     )
 
     fun searchByName(searchName: String, callback: (UiState<DocumentSnapshot>) -> Unit)
+
+    fun editPlantState(plant: Plant, callback: (UiState<String>) -> Unit)
 
     fun deleteCartItem(cartItem: DocumentSnapshot)
 

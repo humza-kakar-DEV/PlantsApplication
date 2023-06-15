@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.databinding.ActivityMainBinding
 import com.example.plantsservicefyp.fragment.admin.ApprovalFragment
+import com.example.plantsservicefyp.fragment.admin.ShowDetailedPlant
 import com.example.plantsservicefyp.fragment.auth.ContainerAuthenticationFragment
 import com.example.plantsservicefyp.fragment.auth.WelcomeFragment
 import com.example.plantsservicefyp.fragment.buyer.ContainerMainData
@@ -34,8 +35,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+
 
         supportFragmentManager
             .beginTransaction()
@@ -132,6 +134,13 @@ class MainActivity : AppCompatActivity() {
                             R.anim.slide_out
                         )
                         .replace(binding.activityMainFrameLayout.id, PaymentFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                ChangeFragment.SHOW_PLANT_DETAILED_FRAGMENT -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(binding.activityMainFrameLayout.id, ShowDetailedPlant())
                         .addToBackStack(null)
                         .commit()
                 }

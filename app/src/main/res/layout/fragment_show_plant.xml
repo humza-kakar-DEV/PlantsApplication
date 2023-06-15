@@ -91,7 +91,7 @@
             android:id="@+id/showPlantImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"

@@ -3,6 +3,7 @@ package com.example.plantsservicefyp.repository.plant
 import android.content.Context
 import android.util.Log
 import com.example.plantsservicefyp.model.firebase.Cart
+import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.FirebaseConstants
 import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.log
@@ -140,6 +141,21 @@ class PlantSearchRepositoryImp @Inject constructor(
             .addOnFailureListener {
                 context.log("plant search: ${it.message.toString()}")
                 callback(UiState.Exception(it.message))
+            }
+    }
+
+    override fun editPlantState(plant: Plant, callback: (UiState<String>) -> Unit) {
+        callback(UiState.Loading)
+        firebaseFirestore.collection(FirebaseConstants.FIRESTORE_PLANT.value)
+            .document(plant.plantId)
+            .set(plant)
+            .addOnSuccessListener {
+                context?.log("edit: success")
+                callback(UiState.Success(null))
+            }
+            .addOnFailureListener {
+                callback(UiState.Exception(it.message))
+                context?.log("edit exception: ${it.message}")
             }
     }
 
