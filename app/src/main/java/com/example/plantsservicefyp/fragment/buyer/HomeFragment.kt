@@ -36,18 +36,17 @@ class HomeFragment() : Fragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        homeViewModel.getApprovedPlants()
+
         plantItemsRecyclerViewAdapter =
             PlantItemsRecyclerViewAdapter(requireContext()) { selectedPlant ->
                 sharedViewModel.changeFragment(ChangeFragment.SHOW_PLANT_FRAGMENT)
                 sharedViewModel.setSelectedPlant(selectedPlant)
             }
 
-        homeViewModel.getAllPlants()
-
         homeViewModel.observeSearchPlantList.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Loading -> {
-                    requireContext().toast("loading")
                     binding.itemFoundTextView.text = "0 founds"
                 }
                 is UiState.Success -> {
@@ -72,7 +71,7 @@ class HomeFragment() : Fragment() {
 
         binding.allChip.isChecked = true
         binding.allChip.setOnClickListener {
-            homeViewModel.getAllPlants()
+            homeViewModel.getApprovedPlants()
         }
 
         binding.herbsChip.setOnClickListener {

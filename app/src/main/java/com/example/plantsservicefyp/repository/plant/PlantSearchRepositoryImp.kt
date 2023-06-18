@@ -3,15 +3,18 @@ package com.example.plantsservicefyp.repository.plant
 import android.content.Context
 import android.util.Log
 import com.example.plantsservicefyp.model.firebase.Cart
+import com.example.plantsservicefyp.model.firebase.Favourite
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.FirebaseConstants
 import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.log
+import com.example.plantsservicefyp.util.toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 /*
@@ -57,52 +60,6 @@ class PlantSearchRepositoryImp @Inject constructor(
             }
             .addOnFailureListener {
                 callback(UiState.Exception(it.message))
-            }
-    }
-
-    override fun getCartItems(
-        buyerId: String,
-        plantList: (UiState<List<DocumentSnapshot>>) -> Unit,
-        cartItems: (UiState<List<DocumentSnapshot>>) -> Unit
-    ) {
-        var plantList = mutableListOf<DocumentSnapshot>()
-        lateinit var listCompleteCallBack: () -> Unit
-        context?.log("started")
-        context?.log("buyer id: ${buyerId}")
-        plantList(UiState.Loading)
-        firebaseFirestore
-            .collection(FirebaseConstants.FIRESTORE_CART.value)
-            .whereEqualTo("buyerId", buyerId)
-            .get()
-            .addOnSuccessListener {
-                if (it.documents.isNotEmpty()) {
-                    context?.log("cart items: ${it.documents.size}")
-                    it.documents.forEach {
-                        it.toObject(Cart::class.java).apply {
-                            firebaseFirestore
-                                .collection(FirebaseConstants.FIRESTORE_PLANT.value)
-                                .whereEqualTo("plantId", this?.plantId)
-                                .get()
-                                .addOnSuccessListener {
-                                    context?.log(it.documents.get(0).id.toString())
-                                    plantList.add(it.documents.get(0))
-                                    listCompleteCallBack()
-                                }
-                        }
-                    }
-                    listCompleteCallBack = {
-                        if (it.documents.size == plantList.size) {
-                            cartItems(UiState.Success(it.documents))
-                            plantList(UiState.Success(plantList))
-                        }
-                    }
-                } else {
-                    cartItems(UiState.Success(emptyList()))
-                    plantList(UiState.Success(emptyList()))
-                }
-            }
-            .addOnFailureListener {
-                plantList(UiState.Exception(it.message))
             }
     }
 
@@ -159,6 +116,52 @@ class PlantSearchRepositoryImp @Inject constructor(
             }
     }
 
+    override fun getCartItems(
+        buyerId: String,
+        plantList: (UiState<List<DocumentSnapshot>>) -> Unit,
+        cartItems: (UiState<List<DocumentSnapshot>>) -> Unit
+    ) {
+        var plantList = mutableListOf<DocumentSnapshot>()
+        lateinit var listCompleteCallBack: () -> Unit
+        context?.log("started")
+        context?.log("buyer id: ${buyerId}")
+        plantList(UiState.Loading)
+        firebaseFirestore
+            .collection(FirebaseConstants.FIRESTORE_CART.value)
+            .whereEqualTo("buyerId", buyerId)
+            .get()
+            .addOnSuccessListener {
+                if (it.documents.isNotEmpty()) {
+                    context?.log("cart items: ${it.documents.size}")
+                    it.documents.forEach {
+                        it.toObject(Cart::class.java).apply {
+                            firebaseFirestore
+                                .collection(FirebaseConstants.FIRESTORE_PLANT.value)
+                                .whereEqualTo("plantId", this?.plantId)
+                                .get()
+                                .addOnSuccessListener {
+                                    context?.log(it.documents.get(0).id.toString())
+                                    plantList.add(it.documents.get(0))
+                                    listCompleteCallBack()
+                                }
+                        }
+                    }
+                    listCompleteCallBack = {
+                        if (it.documents.size == plantList.size) {
+                            cartItems(UiState.Success(it.documents))
+                            plantList(UiState.Success(plantList))
+                        }
+                    }
+                } else {
+                    cartItems(UiState.Success(emptyList()))
+                    plantList(UiState.Success(emptyList()))
+                }
+            }
+            .addOnFailureListener {
+                plantList(UiState.Exception(it.message))
+            }
+    }
+
     override fun deleteCartItem(cartItem: DocumentSnapshot) {
         firebaseFirestore
             .collection(FirebaseConstants.FIRESTORE_CART.value)
@@ -180,6 +183,105 @@ class PlantSearchRepositoryImp @Inject constructor(
                 .delete()
                 .addOnSuccessListener {
                     context?.log("delete all id: ${cartItem.id}")
+                }
+        }
+    }
+
+    override fun getFavouriteItems(
+        buyerId: String,
+        plantListCallBack: (UiState<List<DocumentSnapshot>>) -> Unit,
+        favouriteItems: (UiState<List<DocumentSnapshot>>) -> Unit
+    ) {
+        context?.log("buyer id: ${buyerId}")
+        plantListCallBack(UiState.Loading)
+        var plantList = mutableListOf<DocumentSnapshot>()
+        lateinit var listCompleteCallBack: () -> Unit
+        firebaseFirestore
+            .collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
+            .whereEqualTo("buyerId", buyerId)
+            .get()
+            .addOnSuccessListener {
+                if (it.documents.isNotEmpty()) {
+                    it.documents.forEach {
+                        it.toObject(Favourite::class.java)?.apply {
+                            context?.log("favourite from firebase: ${this.toString()}")
+                            firebaseFirestore
+                                .collection(FirebaseConstants.FIRESTORE_PLANT.value)
+                                .whereEqualTo("plantId", plantId)
+                                .get()
+                                .addOnSuccessListener {
+                                    if (!it.isEmpty) {
+                                        plantList.add(it.documents.get(0))
+                                        listCompleteCallBack()
+                                    }
+                                }
+                        }
+                    }
+                    listCompleteCallBack = {
+                        if (it.documents.size == plantList.size) {
+                            favouriteItems(UiState.Success(it.documents))
+                            plantList.forEach {
+                                context?.log("favourite complete ${it.id}")
+                            }
+                            plantListCallBack(UiState.Success(plantList))
+                        }
+                    }
+                } else {
+                    plantListCallBack(UiState.Success(emptyList()))
+                }
+            }
+            .addOnFailureListener {
+                plantListCallBack(UiState.Exception(it.message))
+            }
+    }
+
+    override fun deleteFavouriteItem(favouriteItem: DocumentSnapshot) {
+        context?.log("delete favourite item: ${favouriteItem.id}")
+        firebaseFirestore
+            .collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
+            .document(favouriteItem.id)
+            .delete()
+            .addOnSuccessListener {
+                context?.toast("favourite item removed ${favouriteItem.id}")
+            }
+    }
+
+    override fun favouriteContainsPlant(
+        buyerId: String,
+        plantId: String,
+        callback: (DocumentSnapshot?) -> Unit
+    ) {
+        firebaseFirestore
+            .collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
+            .whereEqualTo("buyerId", buyerId)
+            .whereEqualTo("plantId", plantId)
+            .get()
+            .addOnSuccessListener {
+                if (!it.isEmpty) {
+                    callback(it.documents.get(0))
+                } else {
+                    callback(null)
+                }
+            }
+    }
+
+    override fun updatePlantsSold(plantsFromCart: List<DocumentSnapshot>) {
+        plantsFromCart.forEachIndexed { index, plantDocument ->
+            firebaseFirestore
+                .collection(FirebaseConstants.FIRESTORE_PLANT.value)
+                .document(plantDocument.id)
+                .get()
+                .addOnSuccessListener {
+                    it.toObject(Plant::class.java)?.apply {
+                        sold = sold?.plus(1)
+                        firebaseFirestore
+                            .collection(FirebaseConstants.FIRESTORE_PLANT.value)
+                            .document(plantDocument.id)
+                            .update("sold", sold)
+                            .addOnSuccessListener {
+                                context?.log("update sold updated: ${plantDocument.id}")
+                            }
+                    }
                 }
         }
     }

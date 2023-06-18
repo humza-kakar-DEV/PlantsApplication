@@ -208,6 +208,20 @@
         app:spinner_popup_elevation="14dp"
         tools:ignore="HardcodedText,UnusedAttribute" />
 
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/signUpLoadingButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/button_background"-->
+<!--        android:fontFamily="@font/poppinsregular"-->
+<!--        android:text="Welcome"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline13"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline1" />-->
+
+
     <com.flod.loadingbutton.LoadingButton
         android:id="@+id/signUpLoadingButton"
         android:layout_width="0dp"
@@ -224,9 +238,9 @@
         android:textSize="14sp"
         app:enableRestore="true"
         app:enableShrink="true"
-        app:layout_constraintTop_toBottomOf="@id/signUpSpinner"
         app:endFailDrawable="@drawable/baseline_cancel_24"
         app:endSuccessDrawable="@drawable/baseline_done_24"
+        app:layout_constraintTop_toBottomOf="@id/signUpSpinner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline15"

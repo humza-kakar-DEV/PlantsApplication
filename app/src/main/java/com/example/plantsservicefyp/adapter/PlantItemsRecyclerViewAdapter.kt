@@ -35,7 +35,7 @@ class PlantItemsRecyclerViewAdapter (
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.plantNameTextView.text = plantList.get(position).name
         viewHolder.plantPriceTextView.text = "Rs. ${plantList.get(position).price}"
-        viewHolder.plantRatingTextView.text = plantList.get(position).rating
+        viewHolder.plantRatingTextView.text = plantList.get(position).rating.toString()
         viewHolder.plantSoldTextView.text = "${plantList.get(position).sold} sold"
         Glide
             .with(context)
@@ -44,7 +44,6 @@ class PlantItemsRecyclerViewAdapter (
             .placeholder(R.drawable.baseline_file_download_24)
             .into(viewHolder.plantImageView)
         viewHolder.plantImageView.setOnClickListener {
-            Toast.makeText(context, "open show item screen", Toast.LENGTH_SHORT).show()
             callback(plantDocumentList.get(position))
         }
     }

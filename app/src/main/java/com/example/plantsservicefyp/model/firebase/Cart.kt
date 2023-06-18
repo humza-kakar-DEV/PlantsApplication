@@ -4,4 +4,5 @@ import java.time.temporal.TemporalAmount
 data class Cart(
     var plantId: String = "",
     var buyerId: String = "",
+    var cartId: String = "",
 )

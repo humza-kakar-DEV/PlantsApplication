@@ -34,6 +34,14 @@ class SharedViewModel @Inject constructor(
     val _observeBoughtItems: LiveData<List<DocumentSnapshot>>
         get() = observeBoughtItems
 
+    private var observeSellerUser = MutableLiveData<DocumentSnapshot>()
+    val _observeSellerUser: LiveData<DocumentSnapshot>
+        get() = observeSellerUser
+
+    private var observeBackToHomeTab = MutableLiveData<Boolean>()
+    val _observeBackToHomeTab: LiveData<Boolean>
+        get() = observeBackToHomeTab
+
     fun changeFragment(_changeFragment: ChangeFragment) {
         observeChangeFragment.value = _changeFragment
     }
@@ -57,6 +65,14 @@ class SharedViewModel @Inject constructor(
 
     fun setBoughtItems(boughtItems: List<DocumentSnapshot>) {
         observeBoughtItems.value = boughtItems
+    }
+
+    fun setObserveSellerUser (user: DocumentSnapshot) {
+        observeSellerUser.value = user
+    }
+
+    fun setBackToHomeTab (isBack: Boolean) {
+        observeBackToHomeTab.value = true
     }
 
 }

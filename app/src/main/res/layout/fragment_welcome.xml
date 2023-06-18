@@ -43,18 +43,30 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline1" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.flod.loadingbutton.LoadingButton
         android:id="@+id/welcomeButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/custom_green"
+        android:drawablePadding="10dp"
         android:fontFamily="@font/poppinsregular"
+        android:gravity="center"
+        android:padding="8dp"
         android:text="Welcome"
-        android:textAllCaps="false"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:textColor="@color/white"
+        android:textSize="14sp"
+        app:enableRestore="true"
+        app:enableShrink="true"
+        app:endSuccessDrawable="@drawable/baseline_done_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:loadingDrawablePosition="Start"
+        app:radius="50dp"
+        app:shrinkShape="Oval" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"

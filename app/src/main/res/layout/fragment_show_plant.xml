@@ -102,108 +102,251 @@
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/_20sdp" />
 
-        <TextView
-            android:id="@+id/showPlantNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppinsbold"
-            android:padding="@dimen/_5sdp"
-            android:text="Purple Plant"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
-
-        <TextView
-            android:id="@+id/showPlantPriceTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppinsbold"
-            android:padding="@dimen/_5sdp"
-            android:text="Rs. 566"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="@+id/guideline1" />
-
-        <View
-            android:id="@+id/line_divider"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/show_plant_line_divider"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/showPlantNameTextView" />
-
-        <TextView
-            android:id="@+id/showPlantDescriptionDataTextView"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppinsregular"
-            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/line_divider" />
+            app:layout_constraintTop_toTopOf="@+id/guideline1">
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/showPlantQuantityTextView"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="@dimen/_20sdp"-->
-        <!--            android:fontFamily="@font/poppinsbold"-->
-        <!--            android:text="Quantity"-->
-        <!--            android:textColor="@color/black"-->
-        <!--            android:textSize="16sp"-->
-        <!--            app:layout_constraintRight_toLeftOf="@id/constraintLayout2"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/showPlantDescriptionDataTextView" />-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--            android:id="@+id/constraintLayout2"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/showPlantQuantityTextView"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/guideline3"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/showPlantQuantityTextView"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/showPlantQuantityTextView">-->
+                <TextView
+                    android:id="@+id/showPlantNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsbold"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Purple Plant"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@+id/showPlantPriceTextView"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <!--            <Button-->
-        <!--                android:id="@+id/incrementButton"-->
-        <!--                android:layout_width="@dimen/_20sdp"-->
-        <!--                android:layout_height="@dimen/_30sdp"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent"-->
-        <!--                app:layout_constraintVertical_bias="0.5" />-->
+                <TextView
+                    android:id="@+id/showPlantPriceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsbold"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Rs. 566"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toEndOf="@+id/showPlantNameTextView"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <!--            <TextView-->
-        <!--                android:id="@+id/showPlantQuantityDataTextView"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginLeft="@dimen/_20sdp"-->
-        <!--                android:layout_marginRight="@dimen/_20sdp"-->
-        <!--                android:text="0"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toStartOf="@+id/decrementButton"-->
-        <!--                app:layout_constraintStart_toEndOf="@+id/incrementButton"-->
-        <!--                app:layout_constraintTop_toTopOf="parent"-->
-        <!--                app:layout_constraintVertical_bias="0.5" />-->
+                <View
+                    android:id="@+id/line_divider"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_5sdp"
+                    android:background="@drawable/show_plant_line_divider"
+                    app:layout_constraintBottom_toTopOf="@+id/showPlantDescriptionDataTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/showPlantNameTextView"
+                    app:layout_constraintVertical_bias="0.5" />
 
-        <!--            <Button-->
-        <!--                android:id="@+id/decrementButton"-->
-        <!--                android:layout_width="@dimen/_20sdp"-->
-        <!--                android:layout_height="@dimen/_30sdp"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent"-->
-        <!--                app:layout_constraintVertical_bias="0.5" />-->
+                <TextView
+                    android:id="@+id/showPlantDescriptionDataTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_divider" />
 
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                <View
+                    android:id="@+id/line_divider2"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_5sdp"
+                    android:background="@drawable/show_plant_line_divider"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/showPlantDescriptionDataTextView" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_divider2">
+
+                    <ImageView
+                        android:id="@+id/detailedImageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/category_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/detailedTextView3"
+                        app:layout_constraintEnd_toStartOf="@+id/detailedTextView3"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/detailedTextView3" />
+
+                    <TextView
+                        android:id="@+id/detailedTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text="plant category"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@+id/detailedTextView4"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintLeft_toRightOf="@+id/detailedImageView2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/detailedTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text=""
+                        android:textColor="@color/custom_green"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/detailedTextView3"
+                        app:layout_constraintTop_toBottomOf="@+id/detailedTextView3"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+                    app:layout_constraintVertical_bias="0.5">
+
+                    <ImageView
+                        android:id="@+id/detailedImageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/mail_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/detailedTextView6"
+                        app:layout_constraintEnd_toStartOf="@+id/detailedTextView6"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/detailedTextView6" />
+
+                    <TextView
+                        android:id="@+id/detailedTextView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text="seller email"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@+id/detailedTextView7"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintLeft_toRightOf="@+id/detailedImageView3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/detailedTextView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text=""
+                        android:textColor="@color/custom_green"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/detailedTextView6"
+                        app:layout_constraintTop_toBottomOf="@+id/detailedTextView6"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <ImageView
+                        android:id="@+id/detailedImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/cart_24_size"
+                        app:layout_constraintBottom_toBottomOf="@+id/detailedTextView1"
+                        app:layout_constraintEnd_toStartOf="@+id/detailedTextView1"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/detailedTextView1" />
+
+                    <TextView
+                        android:id="@+id/detailedTextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text="sold"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@+id/detailedTextView2"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintLeft_toRightOf="@+id/detailedImageView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/detailedTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text=""
+                        android:textColor="@color/custom_green"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/detailedTextView1"
+                        app:layout_constraintTop_toBottomOf="@+id/detailedTextView1"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <CheckBox
+            android:id="@+id/favouriteCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/heart_check_box_selector"
+            android:button="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/addToCartButton"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/addToCartButton" />
 
         <com.flod.loadingbutton.LoadingButton
             android:id="@+id/addToCartButton"
@@ -216,6 +359,7 @@
             android:fontFamily="@font/poppinsregular"
             android:gravity="center"
             android:padding="8dp"
+            android:layout_marginLeft="@dimen/_20sdp"
             android:text="Add to cart"
             android:textColor="@color/white"
             android:textSize="14sp"
@@ -224,7 +368,9 @@
             app:endSuccessDrawable="@drawable/baseline_done_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toRightOf="@+id/favouriteCheckBox"
+            app:layout_constraintStart_toEndOf="@+id/favouriteCheckBox"
             app:loadingDrawablePosition="Start"
             app:radius="50dp"
             app:shrinkShape="Oval" />

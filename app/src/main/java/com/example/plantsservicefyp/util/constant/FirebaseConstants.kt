@@ -5,4 +5,5 @@ enum class FirebaseConstants(val value: String) {
     FIRESTORE_CART("cart"),
     FIRESTORE_USER("user"),
     FIRESTORE_ROLES("roles"),
+    FIRESTORE_FAVOURITE("favourite"),
 }

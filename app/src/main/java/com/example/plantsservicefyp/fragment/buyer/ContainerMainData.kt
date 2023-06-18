@@ -2,38 +2,37 @@ package com.example.plantsservicefyp.fragment.buyer
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.plantsservicefyp.R
-import com.example.plantsservicefyp.activity.MainActivity
 import com.example.plantsservicefyp.databinding.FragmentContainerMainDataBinding
-import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.log
 import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.ContainerMainDataViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
-class ContainerMainData : Fragment() {
+class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: FragmentContainerMainDataBinding
 
+    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    private val authenticationViewModel: AuthenticationViewModel by viewModels()
 
     private val containerMainDataViewModel: ContainerMainDataViewModel by viewModels()
 
@@ -42,6 +41,23 @@ class ContainerMainData : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentContainerMainDataBinding.inflate(layoutInflater, container, false)
+
+        context?.log("executed!!!")
+
+        actionBarDrawerToggle =
+            ActionBarDrawerToggle(
+                activity,
+                binding.drawerLayout,
+                binding.topAppBar,
+                R.string.nav_close,
+                R.string.nav_open
+            )
+        binding.navigationView.setNavigationItemSelectedListener(this)
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.bottomNavigationView.setSelectedItemId(R.id.home_tab)
 
         requireActivity()
             .supportFragmentManager
@@ -76,10 +92,10 @@ class ContainerMainData : Fragment() {
             }
         }
 
-        binding.bottomNavigationView.setSelectedItemId(R.id.home_tab)
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home_tab -> {
+                    binding.topAppBar.title = "Home"
                     requireActivity()
                         .supportFragmentManager
                         .beginTransaction()
@@ -87,8 +103,15 @@ class ContainerMainData : Fragment() {
                         .commit()
                 }
                 R.id.favourite_tab -> {
+                    binding.topAppBar.title = "Favourite"
+                    requireActivity()
+                        .supportFragmentManager
+                        .beginTransaction()
+                        .replace(binding.mainDataFrameLayout.id, FavouriteFragment())
+                        .commit()
                 }
                 R.id.cart_tab -> {
+                    binding.topAppBar.title = "Cart"
                     requireActivity()
                         .supportFragmentManager
                         .beginTransaction()
@@ -105,14 +128,19 @@ class ContainerMainData : Fragment() {
         return binding.root
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//
-//        requireActivity()
-//            .supportFragmentManager
-//            .beginTransaction()
-//            .replace(binding.mainDataFrameLayout.id, HomeFragment())
-//            .commit()
-//    }
+    override fun onStart() {
+        super.onStart()
+        binding.bottomNavigationView.setSelectedItemId(R.id.home_tab)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.nav_drawer_logout) {
+            authenticationViewModel.signOut()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+        }
+        return true
+    }
+
 
 }

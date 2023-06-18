@@ -6,10 +6,12 @@ import com.example.plantsservicefyp.util.CurrentUserType
 import com.example.plantsservicefyp.util.constant.FirebaseAuthRolesConstants
 import com.example.plantsservicefyp.util.constant.FirebaseConstants
 import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.log
 import com.example.plantsservicefyp.util.toast
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -92,29 +94,52 @@ class AuthenticationRepositoryImp @Inject constructor(
     }
 
     override fun currentUser(callback: (CurrentUserType<User>) -> Unit) {
-        firebaseAuth.currentUser?:callback(CurrentUserType.Exception("user not founded!"))
         callback(CurrentUserType.Loading)
-        FirebaseAuthRolesConstants.values().forEachIndexed { index, role ->
-            firebaseFirestore.collection(FirebaseConstants.FIRESTORE_USER.value)
-                .document(FirebaseConstants.FIRESTORE_ROLES.value)
-                .collection(role.value)
-                .whereEqualTo("email", firebaseAuth.currentUser?.email)
-                .get()
-                .addOnSuccessListener {
-                    it.documents.forEach {
-                        when (role) {
-                            FirebaseAuthRolesConstants.FIRESTORE_ADMIN -> {
-                                callback(CurrentUserType.Admin(it.toObject(User::class.java)!!))
+        context?.log("firebase current user: ${firebaseAuth.currentUser?.email}")
+        if (firebaseAuth.currentUser == null) {
+            callback(CurrentUserType.Exception("firebase auth user not found!!"))
+        } else {
+            FirebaseAuthRolesConstants.values().forEachIndexed { index, role ->
+                firebaseFirestore.collection(FirebaseConstants.FIRESTORE_USER.value)
+                    .document(FirebaseConstants.FIRESTORE_ROLES.value)
+                    .collection(role.value)
+                    .whereEqualTo("email", firebaseAuth.currentUser?.email)
+                    .get()
+                    .addOnSuccessListener {
+                        it.documents.forEach {
+                            when (role) {
+                                FirebaseAuthRolesConstants.FIRESTORE_ADMIN -> {
+                                    callback(CurrentUserType.Admin(it.toObject(User::class.java)!!))
+                                }
+                                FirebaseAuthRolesConstants.FIRESTORE_BUYER -> {
+                                    callback(CurrentUserType.Buyer(it.toObject(User::class.java)!!))
+                                }
+                                FirebaseAuthRolesConstants.FIRESTORE_SELLER ->
+                                    callback(CurrentUserType.Seller(it.toObject(User::class.java)!!))
                             }
-                            FirebaseAuthRolesConstants.FIRESTORE_BUYER -> {
-                                callback(CurrentUserType.Buyer(it.toObject(User::class.java)!!))
-                            }
-                            FirebaseAuthRolesConstants.FIRESTORE_SELLER ->
-                                callback(CurrentUserType.Seller(it.toObject(User::class.java)!!))
                         }
                     }
-                }
+
+            }
         }
+    }
+
+    override fun getUserWithId(
+        userId: String,
+        callback: (UiState<DocumentSnapshot>) -> Unit
+    ) {
+        callback(UiState.Loading)
+        firebaseFirestore.collection(FirebaseConstants.FIRESTORE_USER.value)
+            .document(FirebaseConstants.FIRESTORE_ROLES.value)
+            .collection(FirebaseAuthRolesConstants.FIRESTORE_SELLER.value)
+            .document(userId)
+            .get()
+            .addOnSuccessListener {
+                callback(UiState.Success(it))
+            }
+            .addOnFailureListener {
+                callback(UiState.Exception(it.message))
+            }
     }
 
     override fun signOut() {

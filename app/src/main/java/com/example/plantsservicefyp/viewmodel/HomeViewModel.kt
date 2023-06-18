@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     val observeSearchPlantList: LiveData<UiState<List<DocumentSnapshot>>>
         get() = _observeSearchPlantList
 
-    fun getAllPlants() = plantSearchRepository.getAllPlants {
+    fun getApprovedPlants() = plantSearchRepository.getApprovedPlants {
         _observeSearchPlantList.value = it
     }
 

@@ -46,4 +46,8 @@ class CartViewModel @Inject constructor(
         plantSearchRepository.deleteAllCartItems(cartItems)
     }
 
+    fun updatePlantsSold (plantsFromCart: List<DocumentSnapshot>) {
+        plantSearchRepository.updatePlantsSold(plantsFromCart)
+    }
+
 }

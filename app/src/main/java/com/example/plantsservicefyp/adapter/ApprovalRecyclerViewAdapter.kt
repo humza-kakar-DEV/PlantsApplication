@@ -1,23 +1,21 @@
 package com.example.plantsservicefyp.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Switch
+import android.widget.CheckBox
 import android.widget.TextView
-import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.alterText
-import com.example.plantsservicefyp.util.log
-import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.util.animateHorizontalShake
 import com.google.android.material.card.MaterialCardView
-import com.google.apphosting.datastore.testing.DatastoreTestTrace.FirestoreV1Action.ListDocuments
 import com.google.firebase.firestore.DocumentSnapshot
 import com.makeramen.roundedimageview.RoundedImageView
 
@@ -51,10 +49,29 @@ class ApprovalRecyclerViewAdapter (
                 .centerCrop()
                 .placeholder(R.drawable.baseline_file_download_24)
                 .into(viewHolder.roundImage)
-            viewHolder.approvalSwitch.isChecked = plantState!!
-            viewHolder.approvalSwitch.setOnClickListener {
-                plantState = viewHolder.approvalSwitch.isChecked
+            viewHolder.approvalCheckBox.isChecked = plantState!!
+            if (viewHolder.approvalCheckBox.isChecked) {
+                viewHolder.materialCardView.strokeWidth = 3
+                viewHolder.materialCardView.strokeColor = context.getResources().getColor(R.color.custom_green)
+            } else {
+                viewHolder.materialCardView.strokeWidth = 3
+                viewHolder.materialCardView.strokeColor = context.getResources().getColor(R.color.white)
+            }
+            viewHolder.approvalCheckBox.setOnClickListener {
+                plantState = viewHolder.approvalCheckBox.isChecked
                 plantStateCallback(this)
+                viewHolder.parentConstraintLayout.animateHorizontalShake(
+                    offset = 50f,
+                    repeatCount = 4,
+                    duration = 1000L
+                )
+                if (viewHolder.approvalCheckBox.isChecked) {
+                    viewHolder.materialCardView.strokeWidth = 3
+                    viewHolder.materialCardView.strokeColor = context.getResources().getColor(R.color.custom_green)
+                } else {
+                    viewHolder.materialCardView.strokeWidth = 3
+                    viewHolder.materialCardView.strokeColor = context.getResources().getColor(R.color.white)
+                }
             }
             viewHolder.materialCardView.setOnClickListener {
                 plantMoreDetailsCallback(approvalDocumentList.get(position))
@@ -89,8 +106,9 @@ class ApprovalRecyclerViewAdapter (
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val parentConstraintLayout: ConstraintLayout = itemView.findViewById(R.id.approvalRecyclerViewLayoutParent)
         val materialCardView: MaterialCardView = itemView.findViewById(R.id.materialCardView1)
-        val approvalSwitch: Switch = itemView.findViewById(R.id.approvalRecyclerViewSwitch)
+        val approvalCheckBox: CheckBox = itemView.findViewById(R.id.approvalCheckBox)
         val roundImage: RoundedImageView = itemView.findViewById(R.id.approvalRecyclerviewRoundedImage1)
         val nameTextView: TextView = itemView.findViewById(R.id.approvalRecyclerViewNameTextView1)
         val descriptionTextView: TextView = itemView.findViewById(R.id.approvalRecyclerViewDescriptionTextView1)

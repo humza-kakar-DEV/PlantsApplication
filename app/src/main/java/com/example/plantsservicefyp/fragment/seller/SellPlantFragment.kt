@@ -10,27 +10,36 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.databinding.FragmentSellPlantBinding
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.*
+import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SellPlantViewModel
+import com.example.plantsservicefyp.viewmodel.SharedViewModel
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import io.ktor.client.request.*
 
 @AndroidEntryPoint
-class SellPlantFragment : Fragment() {
+class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: FragmentSellPlantBinding
     private val sellPlantViewModel: SellPlantViewModel by viewModels()
     private val authenticationViewModel: AuthenticationViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var plantNameInput: String
     private lateinit var plantDescriptionInput: String
@@ -41,6 +50,7 @@ class SellPlantFragment : Fragment() {
     private var base64Encode: String = ""
     private lateinit var sellerId: String
     private lateinit var createAlertDialog: AlertDialog
+    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -49,7 +59,29 @@ class SellPlantFragment : Fragment() {
     ): View? {
         binding = FragmentSellPlantBinding.inflate(layoutInflater, container, false)
 
-        activity?.createAlertDialog()?.let {
+
+        actionBarDrawerToggle =
+            ActionBarDrawerToggle(
+                activity,
+                binding.drawerLayout,
+                binding.topAppBar,
+                R.string.nav_close,
+                R.string.nav_open
+            )
+        binding.navigationView.setNavigationItemSelectedListener(this)
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+
+
+
+
+
+
+
+        activity?.aiLoadingAlertDialog()?.let {
             createAlertDialog = it
         }
 
@@ -100,7 +132,9 @@ class SellPlantFragment : Fragment() {
                 sellerId = sellerId,
                 imageDownloadUrl = null,
                 plantCategory = plantCategory ?: "",
-                plantState = false
+                plantState = false,
+                sold = 0,
+                rating = 0.0f
             ).apply {
                 sellPlantViewModel.addPlant(plant = this, imageUri = imageUri!!)
             }
@@ -157,7 +191,7 @@ class SellPlantFragment : Fragment() {
                         ).postDelayed(
                             Runnable {
                                      createAlertDialog.cancel()
-                        }, 2000)
+                        }, 3500)
                     }).start()
                 }
                 is UiState.Exception -> {
@@ -168,7 +202,7 @@ class SellPlantFragment : Fragment() {
                         ).postDelayed(
                             Runnable {
                                 createAlertDialog.cancel()
-                            }, 2000)
+                            }, 3500)
                     }).start()
                 }
             }
@@ -221,6 +255,15 @@ class SellPlantFragment : Fragment() {
             binding.textInputLocation.setError(null)
             true
         }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.nav_drawer_logout) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            authenticationViewModel.signOut()
+            sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+        }
+        return true
     }
 
 }

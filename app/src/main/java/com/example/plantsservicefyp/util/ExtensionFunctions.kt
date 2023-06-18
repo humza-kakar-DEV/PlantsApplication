@@ -1,14 +1,25 @@
 package com.example.plantsservicefyp.util
 
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Interpolator
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.manager.SupportRequestManagerFragment
+import com.example.plantsservicefyp.model.firebase.Plant
+import com.example.plantsservicefyp.util.constant.ChangeFragment
+import com.google.firebase.firestore.DocumentSnapshot
 import java.lang.Exception
+import java.time.LocalDateTime
 import java.util.*
 
 internal fun Context.log(message: String) {
@@ -56,7 +67,7 @@ internal fun Uri.base64EncodeFromUri(context: Context): String? {
     return res
 }
 
-internal fun Activity.createAlertDialog (): AlertDialog {
+internal fun Activity.aiLoadingAlertDialog(): AlertDialog {
     return AlertDialog.Builder(this).let {
         this.layoutInflater.inflate(
             com.example.plantsservicefyp.R.layout.sell_fargment_alert_dialog,
@@ -67,4 +78,85 @@ internal fun Activity.createAlertDialog (): AlertDialog {
         it.setCancelable(false)
         it.create()
     }
+}
+
+internal fun View.animateHorizontalShake(
+    offset: Float,
+    repeatCount: Int = 3,
+    dampingRatio: Float? = null,
+    duration: Long = 1000L,
+    interpolator: Interpolator = AccelerateDecelerateInterpolator()
+) {
+    val defaultDampingRatio = dampingRatio ?: (1f / (repeatCount + 1))
+    val animValues = mutableListOf<Float>()
+    repeat(repeatCount) { index ->
+        animValues.add(0f)
+        animValues.add(-offset * (1 - defaultDampingRatio * index))
+        animValues.add(0f)
+        animValues.add(offset * (1 - defaultDampingRatio * index))
+    }
+    animValues.add(0f)
+
+    val anim: ValueAnimator = ValueAnimator.ofFloat(*animValues.toFloatArray())
+    anim.addUpdateListener {
+        this.translationX = it.animatedValue as Float
+    }
+    anim.interpolator = interpolator
+    anim.duration = duration
+    anim.start()
+}
+
+internal fun List<DocumentSnapshot>.createReceipt (totalPrice: String): StringBuilder {
+    var receipt = StringBuilder()
+    receipt.append("\n")
+    receipt.append("RECEIPT \n")
+    receipt.append("Date: \t ${LocalDateTime.now()}\n")
+    receipt.append("----------------------------------\n")
+    this.forEachIndexed { index, documentSnapshot ->
+        documentSnapshot.toObject(Plant::class.java)?.apply {
+            receipt.append("\n")
+            receipt.append("item count:\t${index}\n")
+            receipt.append("plant id:\t\t${plantId}\n")
+            receipt.append("plant name:\t${name}\n")
+            receipt.append("plant price:\t${price}\n")
+            receipt.append("\n")
+        }
+    }
+    receipt.append("----------------------------------\n")
+    receipt.append("Total: \t\tRs.${totalPrice}\n")
+    receipt.append("Payment: \t\tjazzcash")
+
+    return receipt
+}
+
+internal fun Activity.closeApplication (supportFragmentManager: FragmentManager) {
+    supportFragmentManager.popBackStack(ChangeFragment.WELCOME_FRAGMENT.value, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    this.finish()
+}
+
+internal fun Activity.closeApplicationAlertDialog  (supportFragmentManager: FragmentManager): AlertDialog  {
+    return AlertDialog.Builder(this).let {
+        this.layoutInflater.inflate(
+            com.example.plantsservicefyp.R.layout.close_application_alert_dialog,
+            null
+        ).apply {
+            it.setView(this)
+        }
+        it.setNegativeButton("no", object : DialogInterface.OnClickListener {
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+//                closeApplication(supportFragmentManager)
+            }
+        })
+        it.setPositiveButton("yes", object : DialogInterface.OnClickListener {
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+                closeApplication(supportFragmentManager)
+            }
+        })
+        it.setCancelable(false)
+        it.create()
+    }
+}
+
+internal fun FragmentManager.clearBackStack () {
+    this.popBackStack(ChangeFragment.WELCOME_FRAGMENT.value, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 }

@@ -12,6 +12,6 @@ data class Plant (
     var location: String? = "",
     var imageDownloadUrl: String? = null,
     var plantState: Boolean? = null,
-    var rating: String? = "",
-    var sold: String? = "",
+    var rating: Float? = 0f,
+    var sold: Int? = 0,
 )

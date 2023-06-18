@@ -1,6 +1,8 @@
 package com.example.plantsservicefyp.fragment.auth
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.example.plantsservicefyp.util.log
 import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
+import com.flod.loadingbutton.LoadingButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,31 +35,89 @@ class WelcomeFragment() : Fragment() {
         binding = FragmentWelcomeBinding.inflate(layoutInflater, container, false)
 
         binding.welcomeButton.setOnClickListener {
-            authenticationViewModel.currentUser()
-        }
 
-        authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
-            when (it) {
-                is CurrentUserType.Admin -> {
-                    requireContext().toast("admin role")
-                    sharedViewModel.changeFragment(ChangeFragment.ADMIN_FRAGMENT)
-                }
-                is CurrentUserType.Buyer -> {
-                    requireContext().toast("buyer role")
-                    sharedViewModel.changeFragment(ChangeFragment.BUYER_FRAGMENT)
-                }
-                is CurrentUserType.Seller -> {
-                    requireContext().toast("seller role")
-                    sharedViewModel.changeFragment(ChangeFragment.SELLER_FRAGMENT)
-                }
-                CurrentUserType.Loading -> {
-                    requireContext().toast("current user loading")
-                }
-                is CurrentUserType.Exception -> {
-                    requireContext().toast("current user exception ${it.error.toString()}")
-                    sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+            authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
+                when (it) {
+                    is CurrentUserType.Admin -> {
+                        Thread(Runnable {
+                            Handler(
+                                Looper.getMainLooper()
+                            ).postDelayed(
+                                Runnable {
+                                    binding.welcomeButton.complete(true)
+                                }, 1500
+                            )
+                        }).start()
+                        binding.welcomeButton.setOnStatusChangedListener(object :
+                            LoadingButton.OnStatusChangedListener() {
+                            override fun onRestored() {
+                                super.onRestored()
+                                sharedViewModel.changeFragment(ChangeFragment.ADMIN_FRAGMENT)
+                            }
+                        })
+                    }
+                    is CurrentUserType.Buyer -> {
+                        Thread(Runnable {
+                            Handler(
+                                Looper.getMainLooper()
+                            ).postDelayed(
+                                Runnable {
+                                    binding.welcomeButton.complete(true)
+                                }, 1500
+                            )
+                        }).start()
+                        binding.welcomeButton.setOnStatusChangedListener(object :
+                            LoadingButton.OnStatusChangedListener() {
+                            override fun onRestored() {
+                                super.onRestored()
+                                sharedViewModel.changeFragment(ChangeFragment.BUYER_FRAGMENT)
+                            }
+                        })
+                    }
+                    is CurrentUserType.Seller -> {
+                        Thread(Runnable {
+                            Handler(
+                                Looper.getMainLooper()
+                            ).postDelayed(
+                                Runnable {
+                                    binding.welcomeButton.complete(true)
+                                }, 1500
+                            )
+                        }).start()
+                        binding.welcomeButton.setOnStatusChangedListener(object :
+                            LoadingButton.OnStatusChangedListener() {
+                            override fun onRestored() {
+                                super.onRestored()
+                                sharedViewModel.changeFragment(ChangeFragment.SELLER_FRAGMENT)
+                            }
+                        })
+                    }
+                    CurrentUserType.Loading -> {
+                        binding.welcomeButton.start()
+                    }
+                    is CurrentUserType.Exception -> {
+                        binding.welcomeButton.start()
+                        Thread(Runnable {
+                            Handler(
+                                Looper.getMainLooper()
+                            ).postDelayed(
+                                Runnable {
+                                    binding.welcomeButton.complete(true)
+                                }, 1500
+                            )
+                        }).start()
+                        context?.toast("user not signed in")
+                        binding.welcomeButton.setOnStatusChangedListener(object :
+                            LoadingButton.OnStatusChangedListener() {
+                            override fun onRestored() {
+                                super.onRestored()
+                                sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+                            }
+                        })
+                    }
                 }
             }
+
         }
 
         return binding.root

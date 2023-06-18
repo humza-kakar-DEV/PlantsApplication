@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import com.example.apitesting.model.reponse.PlantsIdentification
 import com.example.plantsservicefyp.PlantRequest
 import com.example.plantsservicefyp.model.firebase.Cart
+import com.example.plantsservicefyp.model.firebase.Favourite
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.FirebaseConstants
 import com.example.plantsservicefyp.util.ImageMimeType
@@ -85,12 +86,28 @@ class PlantRepositoryImp @Inject constructor(
     }
 
     override fun addItemToCart(cart: Cart) {
-        firebaseFirestore.collection(FirebaseConstants.FIRESTORE_CART.value)
-            .document()
-            .set(cart)
-            .addOnFailureListener {
-                Toast.makeText(context, "error ${it.message}", Toast.LENGTH_SHORT).show()
-            }
+        cart.apply {
+            cartId = firebaseFirestore.collection(FirebaseConstants.FIRESTORE_CART.value).document().id
+            firebaseFirestore.collection(FirebaseConstants.FIRESTORE_CART.value)
+                .document(cartId)
+                .set(cart)
+                .addOnFailureListener {
+                    Toast.makeText(context, "error ${it.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    override fun addItemToFavourite(favourite: Favourite) {
+        favourite.apply {
+            favouriteId = firebaseFirestore.collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
+                .document().id
+            firebaseFirestore.collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
+                .document(favouriteId)
+                .set(favourite)
+                .addOnFailureListener {
+                    Toast.makeText(context, "error ${it.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -46,24 +46,17 @@ class SignUpFragment : Fragment() {
         authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
             when (it) {
                 is CurrentUserType.Admin -> {
-                    requireContext().toast("admin role")
                     loadingComplete(ChangeFragment.ADMIN_FRAGMENT)
                 }
                 is CurrentUserType.Buyer -> {
-                    requireContext().toast("buyer role")
-                    requireContext().log("sign up fragment: buyer role")
                     loadingComplete(ChangeFragment.BUYER_FRAGMENT)
                 }
                 is CurrentUserType.Seller -> {
-                    requireContext().toast("seller role")
                     loadingComplete(ChangeFragment.SELLER_FRAGMENT)
                 }
                 CurrentUserType.Loading -> {
-                    requireContext().toast("current user loading")
                 }
                 is CurrentUserType.Exception -> {
-                    requireContext().toast("exception ${it.error.toString()}")
-                    binding.signUpLoadingButton.complete(false)
                 }
             }
         }
@@ -71,15 +64,12 @@ class SignUpFragment : Fragment() {
         binding.signUpSpinner.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
             when (newItem) {
                 "admin" -> {
-                    context?.toast("admin")
                     authRole = FirebaseAuthRolesConstants.FIRESTORE_ADMIN
                 }
                 "buyer" -> {
-                    context?.toast("buyer")
                     authRole = FirebaseAuthRolesConstants.FIRESTORE_BUYER
                 }
                 "seller" -> {
-                    context?.toast("seller")
                     authRole = FirebaseAuthRolesConstants.FIRESTORE_SELLER
                 }
             }
@@ -96,9 +86,7 @@ class SignUpFragment : Fragment() {
                     authenticationViewModel.currentUser()
                 }
                 is UiState.Exception -> {
-                    binding.signUpLoadingButton.complete(false)
-                    Log.d("hm123", "signup -> error: ${it.message}")
-                    Toast.makeText(context, "${it.message}", Toast.LENGTH_SHORT).show()
+//                    binding.signUpLoadingButton.complete(false)
                 }
             }
         }
@@ -123,7 +111,7 @@ class SignUpFragment : Fragment() {
         return binding.root
     }
 
-    private fun loadingComplete (changeFragment: ChangeFragment) {
+    private fun loadingComplete(changeFragment: ChangeFragment) {
         binding.signUpLoadingButton.complete(true)
         binding.signUpLoadingButton.setOnStatusChangedListener(object :
             OnStatusChangedListener() {

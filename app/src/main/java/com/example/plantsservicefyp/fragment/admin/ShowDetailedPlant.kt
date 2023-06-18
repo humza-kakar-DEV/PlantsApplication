@@ -12,7 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.databinding.FragmentShowDetailedPlantBinding
 import com.example.plantsservicefyp.model.firebase.Plant
+import com.example.plantsservicefyp.model.firebase.User
+import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.log
 import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +26,8 @@ class ShowDetailedPlant : Fragment() {
     private lateinit var binding: FragmentShowDetailedPlantBinding
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    private val authenticationViewModel: AuthenticationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +48,13 @@ class ShowDetailedPlant : Fragment() {
                     binding.showDetailedPlantDescriptionDataTextView.text = description
                     binding.detailedTextView2.text = plantId
                     binding.detailedTextView4.text = plantCategory
-                    binding.detailedTextView7.text = sellerId
                 }
+            }
+        }
+
+        sharedViewModel._observeSellerUser.observe(viewLifecycleOwner) {
+            it.toObject(User::class.java)?.apply {
+                binding.detailedTextView7.text = email
             }
         }
 

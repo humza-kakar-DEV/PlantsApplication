@@ -40,22 +40,22 @@ class SignInFragment : Fragment() {
         authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
             when (it) {
                 is CurrentUserType.Admin -> {
-                    requireContext().toast("admin role")
+
                     loadingComplete(ChangeFragment.ADMIN_FRAGMENT)
                 }
                 is CurrentUserType.Buyer -> {
-                    requireContext().toast("buyer role")
+
                     loadingComplete(ChangeFragment.BUYER_FRAGMENT)
                 }
                 is CurrentUserType.Seller -> {
-                    requireContext().toast("seller role")
+
                     loadingComplete(ChangeFragment.SELLER_FRAGMENT)
                 }
                 is CurrentUserType.Exception -> {
-                    requireContext().toast("current user exception ${it.error.toString()}")
+
                 }
                 CurrentUserType.Loading -> {
-                    requireContext().toast("current user loading")
+
                 }
             }
         }
@@ -78,9 +78,6 @@ class SignInFragment : Fragment() {
                     })
                 }
                 is UiState.Exception -> {
-                    Log.d("hm123", "sign in -> error: ${it.message}")
-                    Toast.makeText(requireContext(), "error: ${it.message}", Toast.LENGTH_SHORT)
-                        .show()
                     binding.signInLoadingButton.complete(false)
                 }
             }
@@ -96,7 +93,7 @@ class SignInFragment : Fragment() {
         return binding.root
     }
 
-    private fun loadingComplete (changeFragment: ChangeFragment) {
+    private fun loadingComplete(changeFragment: ChangeFragment) {
         binding.signInLoadingButton.complete(true)
         binding.signInLoadingButton.setOnStatusChangedListener(object :
             OnStatusChangedListener() {

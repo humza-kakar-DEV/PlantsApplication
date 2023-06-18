@@ -3,6 +3,7 @@ package com.example.plantsservicefyp.repository.plant
 import android.net.Uri
 import com.example.apitesting.model.reponse.PlantsIdentification
 import com.example.plantsservicefyp.model.firebase.Cart
+import com.example.plantsservicefyp.model.firebase.Favourite
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.UiState
 
@@ -12,4 +13,6 @@ interface PlantRepository {
     fun addItemToCart(cart: Cart)
 
     suspend fun indentifyPlant (imageList: List<Uri>): PlantsIdentification
+
+    fun addItemToFavourite (favourite: Favourite)
 }

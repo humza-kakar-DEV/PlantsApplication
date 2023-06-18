@@ -1,13 +1,12 @@
 package com.example.plantsservicefyp.util.constant
 
-import com.google.firebase.firestore.DocumentSnapshot
-
-enum class ChangeFragment {
-    SHOW_PLANT_FRAGMENT,
-    SHOW_PLANT_DETAILED_FRAGMENT,
-    CONTAINER_AUTHENTICATION_FRAGMENT,
-    ADMIN_FRAGMENT,
-    SELLER_FRAGMENT,
-    BUYER_FRAGMENT,
-    PAYMENT_FRAGMENT
+enum class ChangeFragment(val value: String) {
+    WELCOME_FRAGMENT("welcome_fragment"),
+    SHOW_PLANT_FRAGMENT("plant_fragment"),
+    SHOW_PLANT_DETAILED_FRAGMENT("detailed_plant_fragment"),
+    CONTAINER_AUTHENTICATION_FRAGMENT("authentication_plant_fragment"),
+    ADMIN_FRAGMENT("admin_fragment"),
+    SELLER_FRAGMENT("seller_fragment"),
+    BUYER_FRAGMENT("buyer_fragment"),
+    PAYMENT_FRAGMENT("payment_fragment")
 }
