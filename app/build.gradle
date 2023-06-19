@@ -117,9 +117,11 @@ dependencies {
 //    property delegates like by
     implementation "androidx.fragment:fragment-ktx:1.5.7"
 
-////    mail api
+//    mail api
     implementation 'com.sun.mail:android-mail:1.6.0'
     implementation 'com.sun.mail:android-activation:1.6.0'
+
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 
 }
 

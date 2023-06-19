@@ -12,10 +12,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.databinding.FragmentSignUpBinding
 import com.example.plantsservicefyp.model.firebase.User
-import com.example.plantsservicefyp.util.CurrentUserType
+import com.example.plantsservicefyp.util.*
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.constant.FirebaseAuthRolesConstants
-import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.log
 import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
@@ -86,7 +85,8 @@ class SignUpFragment : Fragment() {
                     authenticationViewModel.currentUser()
                 }
                 is UiState.Exception -> {
-//                    binding.signUpLoadingButton.complete(false)
+                    binding.signUpLoadingButton.complete(false)
+                    context?.toast(it.message.toString())
                 }
             }
         }
@@ -166,6 +166,9 @@ class SignUpFragment : Fragment() {
         return if (passwordInput.isEmpty()) {
             binding.textInputPassword.error = "Field can't be empty"
             false
+        } else if (!passwordInput.isValidPassword()) {
+            binding.textInputPassword.error = "password is too weak!"
+            return false
         } else {
             binding.textInputPassword.error = null
             true

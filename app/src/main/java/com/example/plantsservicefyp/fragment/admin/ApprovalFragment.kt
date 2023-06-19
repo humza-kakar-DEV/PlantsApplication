@@ -1,11 +1,13 @@
 package com.example.plantsservicefyp.fragment.admin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.activityViewModels
@@ -16,10 +18,10 @@ import com.example.plantsservicefyp.adapter.ApprovalRecyclerViewAdapter
 import com.example.plantsservicefyp.adapter.CartRecyclerViewAdapter
 import com.example.plantsservicefyp.databinding.FragmentApprovalBinding
 import com.example.plantsservicefyp.model.firebase.Plant
-import com.example.plantsservicefyp.util.UiState
+import com.example.plantsservicefyp.util.*
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.log
-import com.example.plantsservicefyp.util.toast
+import com.example.plantsservicefyp.util.showAlert
 import com.example.plantsservicefyp.viewmodel.ApprovalViewModel
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
@@ -61,10 +63,6 @@ class ApprovalFragment : Fragment(), NavigationView.OnNavigationItemSelectedList
         actionBarDrawerToggle.syncState()
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-
-
-
         approvalRecyclerViewAdapter =
             ApprovalRecyclerViewAdapter(requireContext(), { statePlant ->
                 approvalViewModel.editPlantState(statePlant)
@@ -86,6 +84,18 @@ class ApprovalFragment : Fragment(), NavigationView.OnNavigationItemSelectedList
                     }
                 }
             })
+
+        authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
+            when (it) {
+                is CurrentUserType.Admin -> {
+                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerEmailTextView).text = it.user.email
+                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerUserName).text = it.user.name
+                }
+                else -> {
+                    "irrelevant id's"
+                }
+            }
+        }
 
         approvalViewModel._observePlantState.observe(viewLifecycleOwner) {
             when (it) {
@@ -135,6 +145,20 @@ class ApprovalFragment : Fragment(), NavigationView.OnNavigationItemSelectedList
             authenticationViewModel.signOut()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+        } else if (item.itemId == R.id.nav_drawer_about) {
+            requireActivity().showAlert(R.layout.about_us_alert_dialog).show()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (item.itemId == R.id.nav_drawer_share) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            val appPackageName = context?.packageName
+            val sendIntent = Intent()
+            sendIntent.setAction(Intent.ACTION_SEND)
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "https://drive.google.com/file/d/1D9O05s_GQ7Bewrrt2XKspjFt0vgIbgLS/view?usp=sharing"
+            )
+            sendIntent.setType("text/plain")
+            context?.startActivity(sendIntent)
         }
         return true
     }

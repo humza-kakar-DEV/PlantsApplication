@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -73,14 +74,6 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
         actionBarDrawerToggle.syncState()
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-
-
-
-
-
-
-
         activity?.aiLoadingAlertDialog()?.let {
             createAlertDialog = it
         }
@@ -89,7 +82,8 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
             when (it) {
                 is CurrentUserType.Seller -> {
                     sellerId = it.user.userId.toString()
-                    context?.log("sell plant fragment -> user id:" + it.user.userId.toString())
+                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerEmailTextView).text = it.user.email
+                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerUserName).text = it.user.name
                 }
                 else -> {
                     "irrelevant id's"
@@ -262,6 +256,20 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             authenticationViewModel.signOut()
             sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+        } else if (item.itemId == R.id.nav_drawer_about) {
+            requireActivity().showAlert(R.layout.about_us_alert_dialog).show()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (item.itemId == R.id.nav_drawer_share) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            val appPackageName = context?.packageName
+            val sendIntent = Intent()
+            sendIntent.setAction(Intent.ACTION_SEND)
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "https://drive.google.com/file/d/1D9O05s_GQ7Bewrrt2XKspjFt0vgIbgLS/view?usp=sharing"
+            )
+            sendIntent.setType("text/plain")
+            context?.startActivity(sendIntent)
         }
         return true
     }

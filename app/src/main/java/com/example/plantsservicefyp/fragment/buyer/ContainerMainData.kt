@@ -1,5 +1,6 @@
 package com.example.plantsservicefyp.fragment.buyer
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
@@ -13,9 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.databinding.FragmentContainerMainDataBinding
+import com.example.plantsservicefyp.util.*
 import com.example.plantsservicefyp.util.constant.ChangeFragment
-import com.example.plantsservicefyp.util.log
-import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.AuthenticationViewModel
 import com.example.plantsservicefyp.viewmodel.ContainerMainDataViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
@@ -43,6 +43,16 @@ class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedLis
         binding = FragmentContainerMainDataBinding.inflate(layoutInflater, container, false)
 
         context?.log("executed!!!")
+
+        authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
+            when (it) {
+                is CurrentUserType.Buyer -> {
+                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerEmailTextView).text = it.user.email
+                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerUserName).text = it.user.name
+                }
+                else -> {"user not needed"}
+            }
+        }
 
         actionBarDrawerToggle =
             ActionBarDrawerToggle(
@@ -138,6 +148,20 @@ class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedLis
             authenticationViewModel.signOut()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+        } else if (item.itemId == R.id.nav_drawer_about) {
+            requireActivity().showAlert(R.layout.about_us_alert_dialog).show()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (item.itemId == R.id.nav_drawer_share) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            val appPackageName = context?.packageName
+            val sendIntent = Intent()
+            sendIntent.setAction(Intent.ACTION_SEND)
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "https://drive.google.com/file/d/1D9O05s_GQ7Bewrrt2XKspjFt0vgIbgLS/view?usp=sharing"
+            )
+            sendIntent.setType("text/plain")
+            context?.startActivity(sendIntent)
         }
         return true
     }

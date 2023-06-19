@@ -206,9 +206,8 @@ class MainActivity : AppCompatActivity() {
             if (supportFragmentManager.findFragmentByTag(ChangeFragment.SHOW_PLANT_DETAILED_FRAGMENT.value) != null) {
                 super.onBackPressed()
                 return
-            } else {
-                this.closeApplicationAlertDialog(supportFragmentManager).show()
             }
+            this.closeApplicationAlertDialog(supportFragmentManager).show()
         }
     }
 

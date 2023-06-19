@@ -4,21 +4,32 @@
     android:layout_width="match_parent"
     android:padding="@dimen/_10sdp"
     android:layout_height="match_parent"
-    android:background="#002AFF">
+    android:background="@color/custom_green">
 
     <ImageView
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
-        android:src="@drawable/flower_icon"/>
+        android:src="@drawable/user_icon_48"/>
 
     <TextView
+        android:id="@+id/drawerUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinssemibold"
-        android:padding="@dimen/_5sdp"
+        android:paddingLeft="@dimen/_5sdp"
         android:text="@string/app_name"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:layout_marginTop="@dimen/_10sdp" />
+
+    <TextView
+        android:id="@+id/drawerEmailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsregular"
+        android:paddingLeft="@dimen/_5sdp"
+        android:text="@string/app_name"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
 
 </LinearLayout>

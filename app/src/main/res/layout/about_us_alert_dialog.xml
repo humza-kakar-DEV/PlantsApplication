@@ -15,18 +15,18 @@
         android:layout_height="wrap_content"
         android:src="@drawable/warning_alert"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/showPlantNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
         android:fontFamily="@font/poppinsbold"
         android:padding="@dimen/_5sdp"
-        android:text="Exit !"
+        android:text="About Us"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:layout_marginLeft="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView5" />
@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinsregular"
-        android:text="Are you sure, you want to exit?"
+        android:text="Welcome to Plants E-Commerce, your one-stop destination for all things green! We are an innovative online platform that aims to connect plant enthusiasts with a vast array of botanical beauties, helping you bring nature's charm into your life with ease.\n\n Right full owners:\n 1. Faizan Ahmad\n 2. Umer naeem\n 3. Ahmad baloch"
         android:layout_marginTop="@dimen/_10sdp"
         android:textColor="@color/black"
         android:textSize="14sp"

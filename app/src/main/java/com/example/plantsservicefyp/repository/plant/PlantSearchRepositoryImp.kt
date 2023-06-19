@@ -242,7 +242,6 @@ class PlantSearchRepositoryImp @Inject constructor(
             .document(favouriteItem.id)
             .delete()
             .addOnSuccessListener {
-                context?.toast("favourite item removed ${favouriteItem.id}")
             }
     }
 

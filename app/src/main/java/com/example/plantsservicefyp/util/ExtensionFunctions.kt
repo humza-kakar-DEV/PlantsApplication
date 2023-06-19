@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.manager.SupportRequestManagerFragment
+import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.google.firebase.firestore.DocumentSnapshot
@@ -106,7 +107,7 @@ internal fun View.animateHorizontalShake(
     anim.start()
 }
 
-internal fun List<DocumentSnapshot>.createReceipt (totalPrice: String): StringBuilder {
+internal fun List<DocumentSnapshot>.createReceipt(totalPrice: String): StringBuilder {
     var receipt = StringBuilder()
     receipt.append("\n")
     receipt.append("RECEIPT \n")
@@ -129,12 +130,15 @@ internal fun List<DocumentSnapshot>.createReceipt (totalPrice: String): StringBu
     return receipt
 }
 
-internal fun Activity.closeApplication (supportFragmentManager: FragmentManager) {
-    supportFragmentManager.popBackStack(ChangeFragment.WELCOME_FRAGMENT.value, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+internal fun Activity.closeApplication(supportFragmentManager: FragmentManager) {
+    supportFragmentManager.popBackStack(
+        ChangeFragment.WELCOME_FRAGMENT.value,
+        FragmentManager.POP_BACK_STACK_INCLUSIVE
+    );
     this.finish()
 }
 
-internal fun Activity.closeApplicationAlertDialog  (supportFragmentManager: FragmentManager): AlertDialog  {
+internal fun Activity.closeApplicationAlertDialog(supportFragmentManager: FragmentManager): AlertDialog {
     return AlertDialog.Builder(this).let {
         this.layoutInflater.inflate(
             com.example.plantsservicefyp.R.layout.close_application_alert_dialog,
@@ -157,6 +161,40 @@ internal fun Activity.closeApplicationAlertDialog  (supportFragmentManager: Frag
     }
 }
 
-internal fun FragmentManager.clearBackStack () {
-    this.popBackStack(ChangeFragment.WELCOME_FRAGMENT.value, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+internal fun FragmentManager.clearBackStack() {
+    this.popBackStack(
+        ChangeFragment.WELCOME_FRAGMENT.value,
+        FragmentManager.POP_BACK_STACK_INCLUSIVE
+    )
+}
+
+internal fun Activity.showAlert(layoutFile: Int): AlertDialog {
+    return AlertDialog.Builder(this).let {
+        this.layoutInflater.inflate(
+            layoutFile,
+            null
+        ).apply {
+            it.setView(this)
+        }
+        it.setPositiveButton("ok", object : DialogInterface.OnClickListener {
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+            }
+        })
+        it.setCancelable(false)
+        it.create()
+    }
+}
+
+internal fun String.isValidPassword(): Boolean {
+    this.let {password->
+        if (password.length < 8) return false
+        if (password.filter { it.isDigit() }.firstOrNull() == null) return false
+        if (password.filter { it.isLetter() }.filter { it.isUpperCase() }
+                .firstOrNull() == null) return false
+        if (password.filter { it.isLetter() }.filter { it.isLowerCase() }
+                .firstOrNull() == null) return false
+        if (password.filter { !it.isLetterOrDigit() }.firstOrNull() == null) return false
+    }
+
+    return true
 }

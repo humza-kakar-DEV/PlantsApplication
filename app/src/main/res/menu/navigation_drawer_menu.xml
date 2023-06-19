@@ -2,7 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/nav_drawer_share"
+        android:title="Share"
+        android:icon="@drawable/share_icon_48"/>
+
+    <item
+        android:id="@+id/nav_drawer_about"
+        android:title="About Us"
+        android:icon="@drawable/warning_icon_24" />
+
+<!--    <item-->
+<!--        android:id="@+id/nav_drawer_privacy_policy"-->
+<!--        android:title="Privacy Policy"-->
+<!--        android:icon="@drawable/privacy_policy_icon_32"/>-->
+
+    <item
         android:id="@+id/nav_drawer_logout"
-        android:title="Logout" />
+        android:title="Logout"
+        android:icon="@drawable/logout_icon"/>
 
 </menu>
