@@ -161,9 +161,9 @@ internal fun Activity.closeApplicationAlertDialog(supportFragmentManager: Fragme
     }
 }
 
-internal fun FragmentManager.clearBackStack() {
+internal fun FragmentManager.clearAllBackStack(fragmentName: String) {
     this.popBackStack(
-        ChangeFragment.WELCOME_FRAGMENT.value,
+        fragmentName,
         FragmentManager.POP_BACK_STACK_INCLUSIVE
     )
 }
@@ -186,7 +186,7 @@ internal fun Activity.showAlert(layoutFile: Int): AlertDialog {
 }
 
 internal fun String.isValidPassword(): Boolean {
-    this.let {password->
+    this.let { password ->
         if (password.length < 8) return false
         if (password.filter { it.isDigit() }.firstOrNull() == null) return false
         if (password.filter { it.isLetter() }.filter { it.isUpperCase() }
@@ -197,4 +197,25 @@ internal fun String.isValidPassword(): Boolean {
     }
 
     return true
+}
+
+internal fun Activity.showPaymentAlert(): AlertDialog {
+    this.let {activity->
+        val alertDialog = AlertDialog.Builder(this).let {
+            this.layoutInflater.inflate(
+                R.layout.payment_alert_dialog,
+                null
+            ).apply {
+                it.setView(this)
+            }
+            it.setPositiveButton("ok", object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    activity.onBackPressed()
+                }
+            })
+            it.setCancelable(false)
+            it.create()
+        }
+        return alertDialog
+    }
 }

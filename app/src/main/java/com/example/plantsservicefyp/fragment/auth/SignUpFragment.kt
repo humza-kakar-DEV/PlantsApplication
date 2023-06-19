@@ -34,7 +34,7 @@ class SignUpFragment : Fragment() {
     private lateinit var phoneNumber: String
     private lateinit var emailInput: String
     private lateinit var passwordInput: String
-    private lateinit var authRole: FirebaseAuthRolesConstants
+    private var authRole: FirebaseAuthRolesConstants? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,9 +91,13 @@ class SignUpFragment : Fragment() {
             }
         }
 
-        binding.signUpLoadingButton.setOnClickListener returnOnClick@{
+        binding.signUpLoadingButton.setOnClickListener onClick@{
             if (!validateEmail() or !validatePassword() or !validateUsername() or !validatePhoneNumber()) {
-                return@returnOnClick
+                return@onClick
+            }
+            if (authRole == null) {
+                context?.toast("Select user role!")
+                return@onClick
             }
             User(
                 name = usernameInput,
@@ -102,7 +106,7 @@ class SignUpFragment : Fragment() {
                 password = passwordInput
             ).apply {
                 authenticationViewModel.signUp(
-                    firebaseAuthRolesConstants = authRole,
+                    firebaseAuthRolesConstants = authRole!!,
                     user = this
                 )
             }

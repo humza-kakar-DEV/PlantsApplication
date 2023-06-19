@@ -52,7 +52,6 @@ class SignInFragment : Fragment() {
                     loadingComplete(ChangeFragment.SELLER_FRAGMENT)
                 }
                 is CurrentUserType.Exception -> {
-
                 }
                 CurrentUserType.Loading -> {
 
@@ -79,6 +78,7 @@ class SignInFragment : Fragment() {
                 }
                 is UiState.Exception -> {
                     binding.signInLoadingButton.complete(false)
+                    context?.toast("error: ${it.message.toString()}")
                 }
             }
         }

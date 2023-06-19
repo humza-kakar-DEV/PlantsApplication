@@ -47,7 +47,7 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
     private lateinit var plantPriceInput: String
     private lateinit var plantLocationInput: String
     private var imageUri: Uri? = null
-    private var plantCategory: String = ""
+    private var plantCategory: String? = null
     private var base64Encode: String = ""
     private lateinit var sellerId: String
     private lateinit var createAlertDialog: AlertDialog
@@ -125,7 +125,7 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
                 location = plantLocationInput,
                 sellerId = sellerId,
                 imageDownloadUrl = null,
-                plantCategory = plantCategory ?: "",
+                plantCategory = plantCategory!!,
                 plantState = false,
                 sold = 0,
                 rating = 0.0f
@@ -144,7 +144,7 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
             }
         }
 
-        binding.imageEidButton.setOnClickListener {
+        binding.imageEidButton2.setOnClickListener {
             startForResult.launch(
                 Intent(
                     Intent.ACTION_PICK,
@@ -157,7 +157,7 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
             plantCategory = newItem
         }
 
-        binding.aiAssistantButton.setOnClickListener {
+        binding.plantVerificationButton.setOnClickListener {
             if (imageUri == null) {
                 context?.toast("select image first!")
             } else {

@@ -17,7 +17,7 @@ import com.example.plantsservicefyp.fragment.buyer.ContainerMainData
 import com.example.plantsservicefyp.fragment.buyer.PaymentFragment
 import com.example.plantsservicefyp.fragment.buyer.ShowPlantFragment
 import com.example.plantsservicefyp.fragment.seller.SellPlantFragment
-import com.example.plantsservicefyp.util.clearBackStack
+import com.example.plantsservicefyp.util.clearAllBackStack
 import com.example.plantsservicefyp.util.closeApplicationAlertDialog
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.toast
@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
         val welcomeFragment = WelcomeFragment()
 
         supportFragmentManager
@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel._observeChangeFragment.observe(this) {
             when (it) {
                 ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT -> {
-                    supportFragmentManager.clearBackStack()
+                    supportFragmentManager.clearBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
+                    supportFragmentManager.clearBackStack(ChangeFragment.BUYER_FRAGMENT.value)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(
@@ -77,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                             ContainerAuthenticationFragment(),
                             ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value
                         )
-                        .addToBackStack(null)
+                        .addToBackStack(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value)
                         .commit()
                 }
                 ChangeFragment.SHOW_PLANT_FRAGMENT -> {
@@ -98,7 +99,8 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 ChangeFragment.ADMIN_FRAGMENT -> {
-                    supportFragmentManager.clearBackStack()
+                    supportFragmentManager.clearAllBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
+                    supportFragmentManager.clearAllBackStack(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(
@@ -116,7 +118,8 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 ChangeFragment.SELLER_FRAGMENT -> {
-                    supportFragmentManager.clearBackStack()
+                    supportFragmentManager.clearAllBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
+                    supportFragmentManager.clearAllBackStack(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(
@@ -134,7 +137,8 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 ChangeFragment.BUYER_FRAGMENT -> {
-                    supportFragmentManager.clearBackStack()
+                    supportFragmentManager.clearAllBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
+                    supportFragmentManager.clearAllBackStack(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(
@@ -148,7 +152,7 @@ class MainActivity : AppCompatActivity() {
                             ContainerMainData(),
                             ChangeFragment.BUYER_FRAGMENT.value
                         )
-                        .addToBackStack(null)
+                        .addToBackStack(ChangeFragment.BUYER_FRAGMENT.value)
                         .commit()
                 }
                 ChangeFragment.PAYMENT_FRAGMENT -> {
@@ -182,7 +186,6 @@ class MainActivity : AppCompatActivity() {
                 else -> {}
             }
         }
-
     }
 
     override fun onBackPressed() {
@@ -197,15 +200,17 @@ class MainActivity : AppCompatActivity() {
             }
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         } else if (supportFragmentManager.findFragmentByTag(ChangeFragment.WELCOME_FRAGMENT.value) != null) {
+            this.toast("welcome fragment founded")
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         } else if (supportFragmentManager.findFragmentByTag(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value) != null) {
+            this.toast("authentication fragment founded")
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         } else if (supportFragmentManager.findFragmentByTag(ChangeFragment.SELLER_FRAGMENT.value) != null) {
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         } else if (supportFragmentManager.findFragmentByTag(ChangeFragment.ADMIN_FRAGMENT.value) != null) {
             if (supportFragmentManager.findFragmentByTag(ChangeFragment.SHOW_PLANT_DETAILED_FRAGMENT.value) != null) {
                 super.onBackPressed()
-                return
+                return@onBackPressed
             }
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         }

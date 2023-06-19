@@ -35,10 +35,11 @@
             android:id="@+id/roundImageView"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_120sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:background="@drawable/plant_edit_image_background"
             android:scaleType="centerCrop"
             android:src="@drawable/seller_panel_image_3"
-            app:layout_constraintBottom_toTopOf="@id/constraintLayout1"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideLine20"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -47,9 +48,21 @@
             app:riv_corner_radius="@dimen/_15sdp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/imageEidButton"
+            android:id="@+id/plantVerificationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/plant_verification_button_background"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/verify_button_icon_24"
+            app:layout_constraintBottom_toBottomOf="@+id/imageEidButton2"
+            app:layout_constraintStart_toStartOf="@+id/roundImageView"
+            app:layout_constraintTop_toTopOf="@+id/imageEidButton2" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/imageEidButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:background="@drawable/plant_edit_button_background"
             android:padding="@dimen/_5sdp"
             android:src="@drawable/baseline_edit_24"
@@ -59,9 +72,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout1"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/horizontalGuideLine20"
             android:background="@drawable/seller_fragment_circle_layout"
+            android:paddingRight="@dimen/_10sdp"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintBottom_toTopOf="@+id/text_input_name"
             app:layout_constraintStart_toStartOf="@+id/guideline">
 
@@ -81,14 +97,13 @@
 
             <TextView
                 android:id="@+id/aiAssistantTextView1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsregular"
-                android:text="ai assistant"
+                android:text="Plant verification"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/nameRoundImage"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nameRoundImage"
                 app:layout_constraintTop_toTopOf="@+id/nameRoundImage" />
 
@@ -110,7 +125,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/roundImageView"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout1"
             app:layout_constraintVertical_chainStyle="packed"
             app:startIconDrawable="@drawable/name_icon">
 
@@ -127,9 +142,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
             android:background="@drawable/seller_fragment_circle_layout"
+            android:paddingRight="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@id/text_input_description"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@id/text_input_name"
@@ -151,14 +167,13 @@
 
             <TextView
                 android:id="@+id/aiAssistantTextView2"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsregular"
-                android:text="ai assistant"
+                android:text="Plant verification"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/descriptionRoundImage"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/descriptionRoundImage"
                 app:layout_constraintTop_toTopOf="@+id/descriptionRoundImage" />
 
@@ -272,7 +287,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="14.5sp"
-            app:layout_constraintBottom_toTopOf="@id/aiAssistantButton"
+            app:layout_constraintBottom_toTopOf="@id/createLoadingButton"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/text_input_location"
@@ -288,28 +303,27 @@
             app:spinner_popup_elevation="14dp"
             tools:ignore="HardcodedText,UnusedAttribute" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/aiAssistantButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:fontFamily="@font/poppinsregular"
-            android:text="AI assistant"
-            android:textAllCaps="false"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@id/sellAllPlantSpinner"
-            app:layout_constraintVertical_chainStyle="packed" />
+        <!--        <androidx.appcompat.widget.AppCompatButton-->
+        <!--            android:id="@+id/aiAssistantButton"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="@dimen/_10sdp"-->
+        <!--            android:fontFamily="@font/poppinsregular"-->
+        <!--            android:text="AI assistant"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:background="@drawable/button_background"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/guideline3"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/guideline4"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/sellAllPlantSpinner"-->
+        <!--            app:layout_constraintVertical_chainStyle="packed" />-->
 
         <com.flod.loadingbutton.LoadingButton
             android:id="@+id/createLoadingButton"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginRight="@dimen/_10sdp"
             android:background="@drawable/button_background"
             android:drawablePadding="10dp"
             android:fontFamily="@font/poppinsregular"
@@ -321,14 +335,13 @@
             app:enableRestore="true"
             app:enableShrink="true"
             app:endSuccessDrawable="@drawable/baseline_done_24"
-            app:layout_constraintBottom_toBottomOf="@id/aiAssistantButton"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@id/aiAssistantButton"
+            app:layout_constraintTop_toBottomOf="@+id/sellAllPlantSpinner"
             app:loadingDrawablePosition="Start"
             app:radius="50dp"
-            app:shrinkShape="Oval"
-            tools:layout_editor_absoluteY="637dp" />
+            app:shrinkShape="Oval" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -350,6 +363,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideLine20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

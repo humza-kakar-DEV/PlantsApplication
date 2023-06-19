@@ -110,6 +110,16 @@ class PaymentFragment : Fragment() {
 
                     customNotification.notification(buyerEmail)
 
+                    Thread(Runnable {
+                        Handler(
+                            Looper.getMainLooper()
+                        ).postDelayed(
+                            Runnable {
+                                     requireActivity().showPaymentAlert().show()
+                            }, 1000
+                        )
+                    }).start()
+
                 }
             }
         }
