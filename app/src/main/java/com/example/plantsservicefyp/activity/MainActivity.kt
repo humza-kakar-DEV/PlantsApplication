@@ -5,9 +5,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.findFragment
-import androidx.lifecycle.lifecycleScope
 import com.example.plantsservicefyp.databinding.ActivityMainBinding
 import com.example.plantsservicefyp.fragment.admin.ApprovalFragment
 import com.example.plantsservicefyp.fragment.admin.ShowDetailedPlant
@@ -17,15 +14,12 @@ import com.example.plantsservicefyp.fragment.buyer.ContainerMainData
 import com.example.plantsservicefyp.fragment.buyer.PaymentFragment
 import com.example.plantsservicefyp.fragment.buyer.ShowPlantFragment
 import com.example.plantsservicefyp.fragment.seller.SellPlantFragment
-import com.example.plantsservicefyp.util.clearAllBackStack
+import com.example.plantsservicefyp.util.clearAllBackStackExcept
 import com.example.plantsservicefyp.util.closeApplicationAlertDialog
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -63,8 +57,7 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel._observeChangeFragment.observe(this) {
             when (it) {
                 ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT -> {
-                    supportFragmentManager.clearBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
-                    supportFragmentManager.clearBackStack(ChangeFragment.BUYER_FRAGMENT.value)
+                    supportFragmentManager.clearAllBackStackExcept(ChangeFragment.values().toMutableList(), ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(
@@ -99,8 +92,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 ChangeFragment.ADMIN_FRAGMENT -> {
-                    supportFragmentManager.clearAllBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
-                    supportFragmentManager.clearAllBackStack(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value)
+                    supportFragmentManager.clearAllBackStackExcept(ChangeFragment.values().toMutableList(), ChangeFragment.ADMIN_FRAGMENT)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(
@@ -114,12 +106,11 @@ class MainActivity : AppCompatActivity() {
                             ApprovalFragment(),
                             ChangeFragment.ADMIN_FRAGMENT.value
                         )
-                        .addToBackStack(null)
+                        .addToBackStack(ChangeFragment.ADMIN_FRAGMENT.value)
                         .commit()
                 }
                 ChangeFragment.SELLER_FRAGMENT -> {
-                    supportFragmentManager.clearAllBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
-                    supportFragmentManager.clearAllBackStack(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value)
+                    supportFragmentManager.clearAllBackStackExcept(ChangeFragment.values().toMutableList(), ChangeFragment.SELLER_FRAGMENT)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(
@@ -133,12 +124,11 @@ class MainActivity : AppCompatActivity() {
                             SellPlantFragment(),
                             ChangeFragment.SELLER_FRAGMENT.value
                         )
-                        .addToBackStack(null)
+                        .addToBackStack(ChangeFragment.SELLER_FRAGMENT.value)
                         .commit()
                 }
                 ChangeFragment.BUYER_FRAGMENT -> {
-                    supportFragmentManager.clearAllBackStack(ChangeFragment.WELCOME_FRAGMENT.value)
-                    supportFragmentManager.clearAllBackStack(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value)
+                    supportFragmentManager.clearAllBackStackExcept(ChangeFragment.values().toMutableList(), ChangeFragment.BUYER_FRAGMENT)
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(

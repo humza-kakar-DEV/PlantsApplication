@@ -14,7 +14,6 @@ import android.view.animation.Interpolator
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
-import com.bumptech.glide.manager.SupportRequestManagerFragment
 import com.example.plantsservicefyp.R
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.ChangeFragment
@@ -161,11 +160,14 @@ internal fun Activity.closeApplicationAlertDialog(supportFragmentManager: Fragme
     }
 }
 
-internal fun FragmentManager.clearAllBackStack(fragmentName: String) {
-    this.popBackStack(
-        fragmentName,
-        FragmentManager.POP_BACK_STACK_INCLUSIVE
-    )
+internal fun FragmentManager.clearAllBackStackExcept(myList: MutableList<ChangeFragment>, fragmentName: ChangeFragment) {
+    myList.remove(fragmentName)
+    myList.forEach {
+        this.popBackStack(
+            it.value,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+    }
 }
 
 internal fun Activity.showAlert(layoutFile: Int): AlertDialog {

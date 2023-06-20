@@ -39,7 +39,6 @@ class WelcomeFragment() : Fragment() {
         binding = FragmentWelcomeBinding.inflate(layoutInflater, container, false)
 
         binding.welcomeButton.setOnClickListener onClickListener@{
-
             if (!EasyPermissions.hasPermissions(activity, Manifest.permission.POST_NOTIFICATIONS)) {
                 EasyPermissions.requestPermissions(
                     host = this,

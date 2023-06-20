@@ -42,6 +42,10 @@ class SharedViewModel @Inject constructor(
     val _observeBackToHomeTab: LiveData<Boolean>
         get() = observeBackToHomeTab
 
+    private var observeDestoryFragment = MutableLiveData<Boolean>()
+    val _observeDestroyFragment: LiveData<Boolean>
+        get() = observeDestoryFragment
+
     fun changeFragment(_changeFragment: ChangeFragment) {
         observeChangeFragment.value = _changeFragment
     }
@@ -73,6 +77,10 @@ class SharedViewModel @Inject constructor(
 
     fun setBackToHomeTab (isBack: Boolean) {
         observeBackToHomeTab.value = true
+    }
+
+    fun destroyFragment (state: Boolean) {
+        observeDestoryFragment.value = state
     }
 
 }

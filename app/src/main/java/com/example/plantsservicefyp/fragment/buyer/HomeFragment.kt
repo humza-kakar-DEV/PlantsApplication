@@ -13,6 +13,7 @@ import com.example.plantsservicefyp.adapter.PlantItemsRecyclerViewAdapter
 import com.example.plantsservicefyp.databinding.FragmentHomeBinding
 import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.constant.ChangeFragment
+import com.example.plantsservicefyp.util.log
 import com.example.plantsservicefyp.util.toast
 import com.example.plantsservicefyp.viewmodel.HomeViewModel
 import com.example.plantsservicefyp.viewmodel.SharedViewModel
@@ -43,6 +44,14 @@ class HomeFragment() : Fragment() {
                 sharedViewModel.changeFragment(ChangeFragment.SHOW_PLANT_FRAGMENT)
                 sharedViewModel.setSelectedPlant(selectedPlant)
             }
+
+        sharedViewModel._observeDestroyFragment.observe(viewLifecycleOwner) {
+            if (it==true) {
+                context?.toast("home fragment on destroy called!")
+                context?.log("home fragment on destroy called!")
+                onDestroy()
+            }
+        }
 
         homeViewModel.observeSearchPlantList.observe(viewLifecycleOwner) {
             when (it) {

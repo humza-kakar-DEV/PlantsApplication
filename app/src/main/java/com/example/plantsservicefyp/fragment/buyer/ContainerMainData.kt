@@ -3,6 +3,8 @@ package com.example.plantsservicefyp.fragment.buyer
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -30,6 +32,8 @@ class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedLis
 
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
+    private lateinit var homeFragment: HomeFragment
+
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val authenticationViewModel: AuthenticationViewModel by viewModels()
@@ -42,15 +46,21 @@ class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedLis
     ): View? {
         binding = FragmentContainerMainDataBinding.inflate(layoutInflater, container, false)
 
-        context?.log("executed!!!")
+        context?.log("container main data executed")
+
+        homeFragment = HomeFragment()
 
         authenticationViewModel._observeCurrentUser.observe(viewLifecycleOwner) {
             when (it) {
                 is CurrentUserType.Buyer -> {
-                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerEmailTextView).text = it.user.email
-                    binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.drawerUserName).text = it.user.name
+                    binding.navigationView.getHeaderView(0)
+                        .findViewById<TextView>(R.id.drawerEmailTextView).text = it.user.email
+                    binding.navigationView.getHeaderView(0)
+                        .findViewById<TextView>(R.id.drawerUserName).text = it.user.name
                 }
-                else -> {"user not needed"}
+                else -> {
+                    "user not needed"
+                }
             }
         }
 
@@ -68,13 +78,6 @@ class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedLis
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.bottomNavigationView.setSelectedItemId(R.id.home_tab)
-
-        requireActivity()
-            .supportFragmentManager
-            .beginTransaction()
-            .replace(binding.mainDataFrameLayout.id, HomeFragment())
-            .commit()
-
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.search_top_app_bar -> {
@@ -109,7 +112,7 @@ class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedLis
                     requireActivity()
                         .supportFragmentManager
                         .beginTransaction()
-                        .replace(binding.mainDataFrameLayout.id, HomeFragment())
+                        .replace(binding.mainDataFrameLayout.id, homeFragment)
                         .commit()
                 }
                 R.id.favourite_tab -> {
@@ -138,16 +141,29 @@ class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedLis
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
+        context?.log("container main fragment clicked skjdflskjdflkjdsf")
         binding.bottomNavigationView.setSelectedItemId(R.id.home_tab)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.nav_drawer_logout) {
+            sharedViewModel.destroyFragment(true)
             authenticationViewModel.signOut()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .remove(homeFragment)
+                .commit()
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .remove(this)
+                .commit()
             sharedViewModel.changeFragment(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT)
+            onDestroy()
         } else if (item.itemId == R.id.nav_drawer_about) {
             requireActivity().showAlert(R.layout.about_us_alert_dialog).show()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
