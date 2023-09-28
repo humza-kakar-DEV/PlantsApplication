@@ -44,11 +44,9 @@ class SignInFragment : Fragment() {
                     loadingComplete(ChangeFragment.ADMIN_FRAGMENT)
                 }
                 is CurrentUserType.Buyer -> {
-                    context?.toast("buyer fragment called even after closing!!!")
                     loadingComplete(ChangeFragment.BUYER_FRAGMENT)
                 }
                 is CurrentUserType.Seller -> {
-                    context?.toast("seller fragment called even after closing!!!")
                     loadingComplete(ChangeFragment.SELLER_FRAGMENT)
                 }
                 is CurrentUserType.Exception -> {

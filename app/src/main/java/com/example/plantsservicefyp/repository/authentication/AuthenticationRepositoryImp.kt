@@ -95,7 +95,6 @@ class AuthenticationRepositoryImp @Inject constructor(
 
     override fun currentUser(callback: (CurrentUserType<User>) -> Unit) {
         callback(CurrentUserType.Loading)
-        context?.log("firebase current user: ${firebaseAuth.currentUser?.email}")
         if (firebaseAuth.currentUser == null) {
             callback(CurrentUserType.Exception("firebase auth user not found!!"))
         } else {

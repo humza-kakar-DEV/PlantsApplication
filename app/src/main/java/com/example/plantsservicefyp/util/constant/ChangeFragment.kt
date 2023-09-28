@@ -8,5 +8,8 @@ enum class ChangeFragment(val value: String) {
     ADMIN_FRAGMENT("admin_fragment"),
     SELLER_FRAGMENT("seller_fragment"),
     BUYER_FRAGMENT("buyer_fragment"),
-    PAYMENT_FRAGMENT("payment_fragment")
+    PAYMENT_FRAGMENT("payment_fragment"),
+    VIDEO_LIST_FRAGMENT("video_list_fragment"),
+    VIDEO_PLAYER_FRAGMENT("video_player_fragment"),
+    CHAT_FRAGMENT("chat_fragment")
 }

@@ -100,7 +100,6 @@ class FavouriteFragment : Fragment() {
                 is UiState.Success -> {
 //                    cartRecyclerViewAdapter
                     if (it.data?.isNotEmpty()!!) {
-                        context?.log("fav items from fragment size: ${it.data.size}")
                         binding.itemFoundTextView.text = "${it.data?.size} founds"
                         plantsFromFavouriteItems.clear()
                         plantsFromFavouriteItems.addAll(it.data)
@@ -122,7 +121,6 @@ class FavouriteFragment : Fragment() {
 
                 }
                 is UiState.Exception -> {
-                    requireContext().log("cart fragment: exception")
                 }
             }
         }

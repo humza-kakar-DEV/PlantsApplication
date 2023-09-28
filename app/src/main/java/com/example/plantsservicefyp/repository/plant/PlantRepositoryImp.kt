@@ -9,6 +9,7 @@ import com.example.apitesting.model.reponse.PlantsIdentification
 import com.example.plantsservicefyp.PlantRequest
 import com.example.plantsservicefyp.model.firebase.Cart
 import com.example.plantsservicefyp.model.firebase.Favourite
+import com.example.plantsservicefyp.model.firebase.Message
 import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.FirebaseConstants
 import com.example.plantsservicefyp.util.ImageMimeType
@@ -75,7 +76,6 @@ class PlantRepositoryImp @Inject constructor(
             imageReference.downloadUrl
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                context.log("image upload success")
                 val imageDownloadUrl = task.result
                 callback(imageDownloadUrl)
             } else {
@@ -87,7 +87,8 @@ class PlantRepositoryImp @Inject constructor(
 
     override fun addItemToCart(cart: Cart) {
         cart.apply {
-            cartId = firebaseFirestore.collection(FirebaseConstants.FIRESTORE_CART.value).document().id
+            cartId =
+                firebaseFirestore.collection(FirebaseConstants.FIRESTORE_CART.value).document().id
             firebaseFirestore.collection(FirebaseConstants.FIRESTORE_CART.value)
                 .document(cartId)
                 .set(cart)
@@ -99,7 +100,8 @@ class PlantRepositoryImp @Inject constructor(
 
     override fun addItemToFavourite(favourite: Favourite) {
         favourite.apply {
-            favouriteId = firebaseFirestore.collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
+            favouriteId = firebaseFirestore
+                .collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
                 .document().id
             firebaseFirestore.collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
                 .document(favouriteId)
@@ -111,9 +113,9 @@ class PlantRepositoryImp @Inject constructor(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun indentifyPlant(imageList: List<Uri>): PlantsIdentification {
-        return withContext(Dispatchers.IO) {
-            var image64List = mutableListOf<String>()
+    override suspend fun identifyPlant(imageList: List<Uri>): PlantsIdentification =
+        withContext(Dispatchers.IO) {
+            val image64List = mutableListOf<String>()
             imageList.forEach {
                 it.base64EncodeFromUri(
                     context
@@ -123,6 +125,9 @@ class PlantRepositoryImp @Inject constructor(
             }
             plantRequest.plantDetails(image64List)
         }
+
+    override fun writeMessage(message: Message) {
+
     }
 
 }

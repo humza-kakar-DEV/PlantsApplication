@@ -122,7 +122,6 @@ class ShowPlantFragment : Fragment() {
         }
 
         showPlantViewModel._observeFavouriteContainsPlant.observe(viewLifecycleOwner) { favouriteItem ->
-            context?.log("favourite item -> ${favouriteItem.toString()}")
             binding.favouriteCheckBox.isChecked = favouriteItem != null
 
             binding.favouriteCheckBox.setOnClickListener {

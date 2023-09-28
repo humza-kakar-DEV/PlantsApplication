@@ -94,7 +94,6 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
         sellPlantViewModel._observePlantAdd.observe(viewLifecycleOwner) {
             when (it) {
                 UiState.Loading -> {
-                    requireContext().log("sell plant: Loading")
                     binding.createLoadingButton.start()
                 }
                 is UiState.Success -> {
@@ -102,7 +101,6 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
                     binding.createLoadingButton.complete(true)
                 }
                 is UiState.Exception -> {
-                    requireContext().log("sell plant: ${it.message.toString()}")
                 }
             }
         }
@@ -168,11 +166,9 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
         sellPlantViewModel._observePlantIndentification.observe(viewLifecycleOwner) {
             when (it) {
                 UiState.Loading -> {
-                    context?.log("api loading")
                     createAlertDialog.show()
                 }
                 is UiState.Success -> {
-                    context?.log("api test data: ${it.data!!}")
                     it.data?.suggestions?.map {
                         it.plant_details
                     }!!.first().apply {
@@ -189,7 +185,6 @@ class SellPlantFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
                     }).start()
                 }
                 is UiState.Exception -> {
-                    context?.log("api data: ${it.message}")
                     Thread(Runnable {
                         Handler(
                             Looper.getMainLooper()

@@ -81,7 +81,6 @@ class SignUpFragment : Fragment() {
                     binding.signUpLoadingButton.start()
                 }
                 is UiState.Success -> {
-                    requireContext().log("sign up fragment: success")
                     authenticationViewModel.currentUser()
                 }
                 is UiState.Exception -> {

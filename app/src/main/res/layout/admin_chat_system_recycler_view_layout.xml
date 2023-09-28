@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_20sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentContentView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/userChatIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/admin_chat_icon_32"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.example.plantsservicefyp.blur.BlurCustomView
+            android:id="@+id/blurCustomView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/parentContentView"
+            app:layout_constraintEnd_toStartOf="@+id/userChatIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="-5dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="email@gmail.com"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/messageTextView"
+            app:layout_constraintStart_toStartOf="@+id/messageTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="
+
+Plants are living organisms that belong to the kingdom Plantae. They are characterized by their ability to photosynthesize, converting light energy into chemical energy, usually using chlorophyll. This process allows plants to produce their own food and sustain themselves. Plants exhibit a wide range of forms, from tiny mosses to towering trees, showcasing remarkable diversity in size, shape, color, and adaptation to various environments. They play a crucial role in ecosystems, providing oxygen, food, shelter, and habitat for countless other organisms. Additionally, plants are essential for maintaining ecological balance, soil fertility, and mitigating climate change through carbon sequestration. Humans rely on plants for sustenance, medicine, materials, and aesthetic enjoyment, highlighting their fundamental importance in our lives."
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/parentContentView"
+            app:layout_constraintEnd_toEndOf="@+id/blurCustomView3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/userChatIcon"
+            app:layout_constraintStart_toStartOf="@+id/blurCustomView3"
+            app:layout_constraintTop_toBottomOf="@id/emailTextView"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/_15sdp"
+    android:background="@drawable/reminder_background_2"
+    android:elevation="@dimen/_10sdp"
+    android:paddingLeft="@dimen/_16sdp"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingRight="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_10sdp">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView2"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:src="@drawable/plant_test_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:round="@dimen/_100sdp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Robbin Plant"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Plants are fascinating living organisms that play a crucial role in our ecosystem. They convert sunlight."
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
+        app:layout_constraintEnd_toStartOf="@+id/imageFilterView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout8"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imageFilterView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/custom_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:round="@dimen/_100sdp" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imageFilterView4"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginLeft="@dimen/_7sdp"
+            android:src="@drawable/time_icon_1_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_3sdp"
+            android:layout_marginBottom="-3dp"
+            android:fontFamily="@font/poppinsregular"
+            android:padding="0dp"
+            android:text="02 / 15"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageFilterView3"
+            app:layout_constraintStart_toEndOf="@+id/imageFilterView4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <androidx.constraintlayout.utils.widget.ImageFilterView-->
+    <!--        android:id="@+id/imageFilterView3"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="@dimen/_20sdp"-->
+    <!--        android:background="@color/custom_green"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView2"-->
+    <!--        app:layout_constraintVertical_bias="0.5"-->
+    <!--        app:round="@dimen/_100sdp" />-->
+
+    <!--    <androidx.constraintlayout.utils.widget.ImageFilterView-->
+    <!--        android:id="@+id/imageFilterView5"-->
+    <!--        android:layout_width="@dimen/_15sdp"-->
+    <!--        android:layout_height="@dimen/_15sdp"-->
+    <!--        android:layout_marginLeft="@dimen/_5sdp"-->
+    <!--        android:src="@drawable/time_icon_32"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/imageFilterView3"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/imageFilterView3"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/imageFilterView3"-->
+    <!--        app:layout_constraintVertical_bias="0.5" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/reminderTime"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="@dimen/_15sdp"-->
+    <!--        android:fontFamily="@font/poppinsbold"-->
+    <!--        android:text="20 / 15"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="12sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/imageFilterView3"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/imageFilterView3"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/imageFilterView5"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/imageFilterView3"-->
+    <!--        app:layout_constraintVertical_bias="0.5" />-->
+
+    <!-- ************************************* -->
+
+    <!-- android:background="@drawable/reminder_background" -->
+    <!--    <androidx.constraintlayout.utils.widget.ImageFilterView-->
+    <!--        android:id="@+id/reminderImageView"-->
+    <!--        android:layout_width="@dimen/_70sdp"-->
+    <!--        android:layout_height="@dimen/_70sdp"-->
+    <!--        android:src="@drawable/plant_test_image"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.5"-->
+    <!--        app:round="@dimen/_100sdp" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/reminderHeading"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--        android:fontFamily="@font/poppinsbold"-->
+    <!--        android:text="Robbin Plant"-->
+    <!--        android:textAlignment="textStart"-->
+    <!--        android:textColor="@color/custom_green"-->
+    <!--        android:textSize="16sp"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/reminderImageView"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/reminderDescription"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--        android:fontFamily="@font/poppinsbold"-->
+    <!--        android:text="the most widely available form, makes a striking ornamental shrub, It can be grown as a standalone shrub or a hedge, as of plants."-->
+    <!--        android:textAlignment="textStart"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="10sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/reminderImageView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/reminderHeading" />-->
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="@dimen/_20sdp"-->
+    <!--        android:layout_marginTop="@dimen/_2sdp"-->
+    <!--        android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/reminderImageView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/reminderDescription">-->
+
+    <!--        <androidx.constraintlayout.utils.widget.ImageFilterView-->
+    <!--            android:id="@+id/imageFilterView3"-->
+    <!--            android:layout_width="@dimen/_70sdp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:background="@color/custom_red"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHorizontal_bias="0.5"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:layout_constraintVertical_bias="0.5"-->
+    <!--            app:round="@dimen/_100sdp" />-->
+
+    <!--        <androidx.constraintlayout.utils.widget.ImageFilterView-->
+    <!--            android:id="@+id/imageFilterView5"-->
+    <!--            android:layout_width="@dimen/_15sdp"-->
+    <!--            android:layout_height="@dimen/_15sdp"-->
+    <!--            android:layout_marginLeft="@dimen/_5sdp"-->
+    <!--            android:src="@drawable/time_icon_32"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="@+id/imageFilterView3"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:layout_constraintVertical_bias="0.5" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/reminderTime"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginRight="@dimen/_5sdp"-->
+    <!--            android:fontFamily="@font/poppinsbold"-->
+    <!--            android:text="20 / 15"-->
+    <!--            android:textAlignment="textStart"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textSize="12sp"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="@+id/imageFilterView3"-->
+    <!--            app:layout_constraintTop_toTopOf="@+id/imageFilterView5"-->
+    <!--            app:layout_constraintVertical_bias="0.5" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

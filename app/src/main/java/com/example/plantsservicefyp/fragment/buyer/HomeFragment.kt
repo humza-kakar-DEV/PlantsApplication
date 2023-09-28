@@ -47,8 +47,6 @@ class HomeFragment() : Fragment() {
 
         sharedViewModel._observeDestroyFragment.observe(viewLifecycleOwner) {
             if (it==true) {
-                context?.toast("home fragment on destroy called!")
-                context?.log("home fragment on destroy called!")
                 onDestroy()
             }
         }

@@ -90,7 +90,6 @@ class PaymentFragment : Fragment() {
 
         mailCallback = {
             requireContext().toast("mail v1.1")
-            requireContext().log("MAIL EMAIL: ${buyerEmail}")
             GlobalScope.launch (Dispatchers.IO) {
                 CustomEmail(requireContext()).sendEmail(
                     toEmail = buyerEmail,

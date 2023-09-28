@@ -40,7 +40,7 @@ class SellPlantViewModel @Inject constructor(
         observePlantIndentification.value = UiState.Loading
         viewModelScope.launch {
             try {
-                observePlantIndentification.value = UiState.Success(plantRepository.indentifyPlant(imageList))
+                observePlantIndentification.value = UiState.Success(plantRepository.identifyPlant(imageList))
             } catch (e: Exception) {
                 observePlantIndentification.value = UiState.Exception(e.message.toString())
             }

@@ -27,7 +27,6 @@ class CartViewModel @Inject constructor(
         get() = observeCartItems
 
     fun getCartItems(buyerId: String) {
-        context?.log("get cart items called")
         plantSearchRepository.getCartItems(buyerId,
             {plantItems->
                 observePlantsFromCart.value = plantItems

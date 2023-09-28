@@ -10,13 +10,15 @@
     <color name="gray">#595959</color>
     <color name="custom_gray">#E0E0E0</color>
     <color name="white">#FFFFFFFF</color>
-<!--    custom white    -->
+
+<!--    custom colors   -->
+    <color name="transparent_green">#6800BA6B</color>
     <color name="custom_white1">#EEEEEE</color>
     <color name="custom_green">#00BA6B</color>
     <color name="dark_custom_green">#009236</color>
     <color name="transparent_custom_green"><color name="custom_green">#00BA6B</color></color>
     <color name="custom_red">#FF0000</color>
-    <color name="custom_transparent">#0000BA6B</color>
+    <color name="custom_transparent">#00FFFFFF</color>
     <color name="background">#2B292B</color>
     <color name="background800">#424242</color>
     <color name="background900">#212121</color>
@@ -24,7 +26,6 @@
     <color name="white_70">#b2ffffff</color>
     <color name="white_87">#ddffffff</color>
     <color name="white_93">#edf8f8f8</color>
-<!--    white   -->
     <color name="custom_white2">#ffffffff</color>
     <color name="skyBlue">#57A8D8</color>
     <color name="yellow">#FBC02D</color>
@@ -39,6 +40,7 @@
     <color name="md_blue_200">#0091EA</color>
     <color name="md_purple_100">#AA00FF</color>
     <color name="md_purple_200">#7200CA</color>
+    <color  name="mtrl_textinput_default_box_stroke_color">@color/white</color>
     <color name="powerspinner_scrollbar">#0091EA</color>
-<!--    transparent green   -->
+
 </resources>

@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
@@ -19,6 +20,8 @@ import com.example.plantsservicefyp.model.firebase.Plant
 import com.example.plantsservicefyp.util.constant.ChangeFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import java.lang.Exception
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
@@ -62,7 +65,6 @@ internal fun Uri.base64EncodeFromUri(context: Context): String? {
                 .encodeToString(context.contentResolver.openInputStream(this)?.readAllBytes())
         }
     } catch (e: Exception) {
-        context.log(e.message.toString())
     }
     return res
 }
@@ -145,17 +147,11 @@ internal fun Activity.closeApplicationAlertDialog(supportFragmentManager: Fragme
         ).apply {
             it.setView(this)
         }
-        it.setNegativeButton("no", object : DialogInterface.OnClickListener {
-            override fun onClick(p0: DialogInterface?, p1: Int) {
-//                closeApplication(supportFragmentManager)
-            }
-        })
-        it.setPositiveButton("yes", object : DialogInterface.OnClickListener {
-            override fun onClick(p0: DialogInterface?, p1: Int) {
-                closeApplication(supportFragmentManager)
-            }
-        })
-        it.setCancelable(false)
+        it.setNegativeButton("no") { p0, p1 ->
+            p0.cancel()
+        }
+        it.setPositiveButton("yes") { p0, p1 -> closeApplication(supportFragmentManager) }
+        it.setCancelable(true)
         it.create()
     }
 }
@@ -220,4 +216,20 @@ internal fun Activity.showPaymentAlert(): AlertDialog {
         }
         return alertDialog
     }
+}
+
+fun Context.convertTo12Hr(time24Hr: String): String? {
+    try {
+        val sdf = SimpleDateFormat("H:mm")
+        val dateObj: Date = sdf.parse(time24Hr)
+        return SimpleDateFormat("K:mm").format(dateObj)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+        return e.message
+    }
+}
+
+fun View.hideKeyboard() {
+    (this.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
+        .hideSoftInputFromWindow(this.windowToken, 0);
 }

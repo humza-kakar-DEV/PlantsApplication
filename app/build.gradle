@@ -42,7 +42,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 //    implementation 'javax.mail:javax.mail-api:1.6.2'
@@ -103,8 +103,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
 
     //    mvvm
-    def lifecycle_version = "2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
     //    hilt dependency injection
     implementation "com.google.dagger:hilt-android:2.44"
@@ -121,8 +120,18 @@ dependencies {
     implementation 'com.sun.mail:android-mail:1.6.0'
     implementation 'com.sun.mail:android-activation:1.6.0'
 
+//    permission library
     implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 
+//    exo player (video player)
+    implementation "androidx.media3:media3-exoplayer:1.1.1"
+    implementation "androidx.media3:media3-exoplayer-dash:1.1.1"
+    implementation "androidx.media3:media3-ui:1.1.1"
+
+//    youtube download url extractor
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v2.1.0'
+
+    implementation 'jp.wasabeef:blurry:4.0.1'
 }
 
 // Allow references to generated code

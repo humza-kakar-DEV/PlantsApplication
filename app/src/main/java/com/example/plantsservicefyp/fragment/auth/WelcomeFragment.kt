@@ -44,7 +44,7 @@ class WelcomeFragment() : Fragment() {
                     host = this,
                     rationale = "Enable notification permission for better user experience!",
                     requestCode = 1101,
-                    perms = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
+                    perms = arrayOf(Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.VIBRATE)
                 )
                 return@onClickListener
             }
@@ -119,7 +119,6 @@ class WelcomeFragment() : Fragment() {
                                 }, 1500
                             )
                         }).start()
-                        context?.toast("user not signed in")
                         binding.welcomeButton.setOnStatusChangedListener(object :
                             LoadingButton.OnStatusChangedListener() {
                             override fun onRestored() {

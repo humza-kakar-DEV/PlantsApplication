@@ -127,7 +127,6 @@ class CartFragment : Fragment() {
 
                 }
                 is UiState.Exception -> {
-                    requireContext().log("cart fragment: exception")
                 }
             }
         }
@@ -169,7 +168,6 @@ class CartFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        context?.log("CART ON DESTROY CALLED")
         sharedViewModel.setBackToHomeTab(true)
     }
 }

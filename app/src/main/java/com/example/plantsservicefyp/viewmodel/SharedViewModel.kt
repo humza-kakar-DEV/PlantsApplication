@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.plantsservicefyp.model.VideoDetail
 import com.example.plantsservicefyp.repository.plant.PlantSearchRepository
 import com.example.plantsservicefyp.util.UiState
 import com.example.plantsservicefyp.util.constant.ChangeFragment
@@ -46,6 +47,10 @@ class SharedViewModel @Inject constructor(
     val _observeDestroyFragment: LiveData<Boolean>
         get() = observeDestoryFragment
 
+    private var observeVideoDetail = MutableLiveData<VideoDetail>()
+    val _observeVideoDetail: LiveData<VideoDetail>
+        get() = observeVideoDetail
+
     fun changeFragment(_changeFragment: ChangeFragment) {
         observeChangeFragment.value = _changeFragment
     }
@@ -71,16 +76,20 @@ class SharedViewModel @Inject constructor(
         observeBoughtItems.value = boughtItems
     }
 
-    fun setObserveSellerUser (user: DocumentSnapshot) {
+    fun setObserveSellerUser(user: DocumentSnapshot) {
         observeSellerUser.value = user
     }
 
-    fun setBackToHomeTab (isBack: Boolean) {
+    fun setBackToHomeTab(isBack: Boolean) {
         observeBackToHomeTab.value = true
     }
 
-    fun destroyFragment (state: Boolean) {
+    fun destroyFragment(state: Boolean) {
         observeDestoryFragment.value = state
+    }
+
+    fun setVideoDetail(videoDetail: VideoDetail) {
+        observeVideoDetail.value = videoDetail
     }
 
 }

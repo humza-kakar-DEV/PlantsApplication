@@ -96,7 +96,6 @@ class PlantSearchRepositoryImp @Inject constructor(
                 }
             }
             .addOnFailureListener {
-                context.log("plant search: ${it.message.toString()}")
                 callback(UiState.Exception(it.message))
             }
     }
@@ -107,12 +106,10 @@ class PlantSearchRepositoryImp @Inject constructor(
             .document(plant.plantId)
             .set(plant)
             .addOnSuccessListener {
-                context?.log("edit: success")
                 callback(UiState.Success(null))
             }
             .addOnFailureListener {
                 callback(UiState.Exception(it.message))
-                context?.log("edit exception: ${it.message}")
             }
     }
 
@@ -123,8 +120,6 @@ class PlantSearchRepositoryImp @Inject constructor(
     ) {
         var plantList = mutableListOf<DocumentSnapshot>()
         lateinit var listCompleteCallBack: () -> Unit
-        context?.log("started")
-        context?.log("buyer id: ${buyerId}")
         plantList(UiState.Loading)
         firebaseFirestore
             .collection(FirebaseConstants.FIRESTORE_CART.value)
@@ -132,7 +127,6 @@ class PlantSearchRepositoryImp @Inject constructor(
             .get()
             .addOnSuccessListener {
                 if (it.documents.isNotEmpty()) {
-                    context?.log("cart items: ${it.documents.size}")
                     it.documents.forEach {
                         it.toObject(Cart::class.java).apply {
                             firebaseFirestore
@@ -168,10 +162,8 @@ class PlantSearchRepositoryImp @Inject constructor(
             .document(cartItem.id)
             .delete()
             .addOnSuccessListener {
-                context?.log("documented deleted")
             }
             .addOnFailureListener {
-                context?.log("delete exception: ${it.message}")
             }
     }
 
@@ -182,7 +174,6 @@ class PlantSearchRepositoryImp @Inject constructor(
                 .document(cartItem.id)
                 .delete()
                 .addOnSuccessListener {
-                    context?.log("delete all id: ${cartItem.id}")
                 }
         }
     }
@@ -192,7 +183,6 @@ class PlantSearchRepositoryImp @Inject constructor(
         plantListCallBack: (UiState<List<DocumentSnapshot>>) -> Unit,
         favouriteItems: (UiState<List<DocumentSnapshot>>) -> Unit
     ) {
-        context?.log("buyer id: ${buyerId}")
         plantListCallBack(UiState.Loading)
         var plantList = mutableListOf<DocumentSnapshot>()
         lateinit var listCompleteCallBack: () -> Unit
@@ -204,7 +194,6 @@ class PlantSearchRepositoryImp @Inject constructor(
                 if (it.documents.isNotEmpty()) {
                     it.documents.forEach {
                         it.toObject(Favourite::class.java)?.apply {
-                            context?.log("favourite from firebase: ${this.toString()}")
                             firebaseFirestore
                                 .collection(FirebaseConstants.FIRESTORE_PLANT.value)
                                 .whereEqualTo("plantId", plantId)
@@ -221,7 +210,6 @@ class PlantSearchRepositoryImp @Inject constructor(
                         if (it.documents.size == plantList.size) {
                             favouriteItems(UiState.Success(it.documents))
                             plantList.forEach {
-                                context?.log("favourite complete ${it.id}")
                             }
                             plantListCallBack(UiState.Success(plantList))
                         }
@@ -236,7 +224,6 @@ class PlantSearchRepositoryImp @Inject constructor(
     }
 
     override fun deleteFavouriteItem(favouriteItem: DocumentSnapshot) {
-        context?.log("delete favourite item: ${favouriteItem.id}")
         firebaseFirestore
             .collection(FirebaseConstants.FIRESTORE_FAVOURITE.value)
             .document(favouriteItem.id)
@@ -278,7 +265,6 @@ class PlantSearchRepositoryImp @Inject constructor(
                             .document(plantDocument.id)
                             .update("sold", sold)
                             .addOnSuccessListener {
-                                context?.log("update sold updated: ${plantDocument.id}")
                             }
                     }
                 }

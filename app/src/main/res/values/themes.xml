@@ -14,6 +14,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!--    custom floating action button styles    -->
+    <style name="myCustomFloatingActionButton">
+        <item name="iconTint">@color/white</item>
+        <item name="drawableTint">@color/white</item>
+    </style>
+
     <!--    bottom navigation font change style     -->
     <style name="BottomNavigationView">
         <item name="fontFamily">@font/poppinsregular</item>

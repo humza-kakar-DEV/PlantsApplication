@@ -76,7 +76,6 @@ class ApprovalFragment : Fragment(), NavigationView.OnNavigationItemSelectedList
                 authenticationViewModel._observeUser.observe(viewLifecycleOwner) {
                     when (it) {
                         is UiState.Success -> {
-                            context?.log("approval fragment: ${it.data?.id}")
                             sharedViewModel.setObserveSellerUser(it.data!!)
                             sharedViewModel.changeFragment(ChangeFragment.SHOW_PLANT_DETAILED_FRAGMENT)
                         }
@@ -127,7 +126,6 @@ class ApprovalFragment : Fragment(), NavigationView.OnNavigationItemSelectedList
                     }
                 }
                 is UiState.Exception -> {
-                    context?.log("list error: ${it.message}")
                 }
             }
         }
