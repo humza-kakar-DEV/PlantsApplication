@@ -11,9 +11,10 @@ sealed class RecyclerViewChatSystemViewHolder(binding: ViewBinding) :
 
     class AdminChatViewHolder(private val binding: AdminChatSystemRecyclerViewLayoutBinding) :
         RecyclerViewChatSystemViewHolder(binding) {
-        fun bind(botChat: ChatSystemData.AdminChatSystem) {
+        fun bind(adminChat: ChatSystemData.AdminChatSystem) {
 //            set views and on clicks here please
-//            binding.chatBotTextView.text = botChat.body
+            binding.emailTextView.text = adminChat.email.toString()
+            binding.messageTextView.text = adminChat.message.toString()
         }
     }
 
@@ -21,7 +22,8 @@ sealed class RecyclerViewChatSystemViewHolder(binding: ViewBinding) :
         RecyclerViewChatSystemViewHolder(binding) {
         fun bind(userChat: ChatSystemData.UserChatSystem) {
 //            set views and on clicks here please
-//            binding.chatUserTextView.text = userChat.body
+            binding.emailTextView.text = userChat.email.toString()
+            binding.messageTextView.text = userChat.message.toString()
         }
     }
 }

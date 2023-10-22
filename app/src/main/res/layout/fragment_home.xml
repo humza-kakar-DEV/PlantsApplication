@@ -24,12 +24,24 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/recommendationChip"
+                style="@style/my.custom.chip.style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recommend"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/custom_green"
+                app:chipStrokeColor="@color/custom_green"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
                 android:id="@+id/allChip"
                 style="@style/my.custom.chip.style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All"
-                android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_marginLeft="@dimen/_2sdp"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 android:textColor="@color/custom_green"
                 app:chipStrokeColor="@color/custom_green"

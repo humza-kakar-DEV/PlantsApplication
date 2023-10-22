@@ -57,6 +57,17 @@
             app:layout_constraintTop_toBottomOf="@+id/itemFoundTextView"
             app:layout_constraintVertical_bias="0.5" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/chatFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            app:backgroundTint="@color/custom_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="@color/white" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

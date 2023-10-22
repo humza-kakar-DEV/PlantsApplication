@@ -47,7 +47,7 @@
         android:paddingLeft="@dimen/_20sdp"
         android:paddingTop="@dimen/_20sdp"
         android:paddingRight="@dimen/_20sdp"
-        android:paddingBottom="@dimen/_50sdp"
+        android:paddingBottom="@dimen/_65sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -56,7 +56,7 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/askMessageEditText"
+        android:id="@+id/messageEditText"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -75,7 +75,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,12 +89,12 @@
         android:background="@color/custom_green"
         android:padding="@dimen/_10sdp"
         android:src="@drawable/baseline_send_24"
-        app:layout_constraintBottom_toBottomOf="@+id/askMessageEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/messageEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/askMessageEditText"
-        app:layout_constraintTop_toTopOf="@+id/askMessageEditText"
+        app:layout_constraintStart_toEndOf="@+id/messageEditText"
+        app:layout_constraintTop_toTopOf="@+id/messageEditText"
         app:layout_constraintVertical_chainStyle="spread"
         app:round="@dimen/_100sdp" />
 

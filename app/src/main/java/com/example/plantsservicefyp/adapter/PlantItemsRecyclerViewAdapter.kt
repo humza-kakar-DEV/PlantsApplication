@@ -20,7 +20,11 @@ class PlantItemsRecyclerViewAdapter (
 ) : RecyclerView.Adapter<PlantItemsRecyclerViewAdapter.ViewHolder>() {
 
     private var plantDocumentList = mutableListOf<DocumentSnapshot>()
-    private var plantList = mutableListOf<Plant>()
+    var plantList = mutableListOf<Plant>()
+        set (value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     init {
         convertToPlant()

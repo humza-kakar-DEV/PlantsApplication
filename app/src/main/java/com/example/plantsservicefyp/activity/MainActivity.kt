@@ -276,10 +276,8 @@ class MainActivity : AppCompatActivity() {
             }
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         } else if (supportFragmentManager.findFragmentByTag(ChangeFragment.WELCOME_FRAGMENT.value) != null) {
-            this.toast("welcome fragment founded")
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         } else if (supportFragmentManager.findFragmentByTag(ChangeFragment.CONTAINER_AUTHENTICATION_FRAGMENT.value) != null) {
-            this.toast("authentication fragment founded")
             this.closeApplicationAlertDialog(supportFragmentManager).show()
         } else if (supportFragmentManager.findFragmentByTag(ChangeFragment.SELLER_FRAGMENT.value) != null) {
             this.closeApplicationAlertDialog(supportFragmentManager).show()

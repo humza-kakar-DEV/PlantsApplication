@@ -3,6 +3,7 @@ package com.example.plantsservicefyp.repository.plant
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.service.notification.NotificationListenerService.Ranking
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.apitesting.model.reponse.PlantsIdentification
@@ -19,8 +20,14 @@ import com.example.plantsservicefyp.util.log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firestore.v1.DocumentTransform.FieldTransform.ServerValue
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -126,8 +133,45 @@ class PlantRepositoryImp @Inject constructor(
             plantRequest.plantDetails(image64List)
         }
 
-    override fun writeMessage(message: Message) {
+    override fun writeMessage(message: Message): Flow<Unit> {
+        return flow {
+            message.apply {
+                messageId = firebaseFirestore.collection("maintenance_customer").document().id
+                firebaseFirestore
+                    .collection("maintenance_customer")
+                    .document(messageId)
+                    .set(this)
+                    .await()
+            }
+        }
+    }
 
+    override fun getAllMessages(): Flow<List<Message>> {
+        return callbackFlow {
+            val snapshotListener =
+                firebaseFirestore.collection("maintenance_customer")
+                    .addSnapshotListener { snapshot, e ->
+                        if (e != null) {
+                            close(e)
+                            return@addSnapshotListener
+                        }
+                        if ((snapshot != null) and (!snapshot?.isEmpty!!)) {
+                            val data = mutableListOf<Message>()
+                            if (snapshot.documents.isNotEmpty()) {
+                                snapshot.documents.forEach {
+                                    data.add(it.toObject(Message::class.java)!!)
+                                }
+                                trySend(data)
+                            } else {
+                                context.log("message list is empty!")
+                                trySend(emptyList())
+                            }
+                        }
+                    }
+            awaitClose {
+                snapshotListener.remove()
+            }
+        }
     }
 
 }

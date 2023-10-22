@@ -30,9 +30,11 @@ interface PlantSearchRepository {
 
     fun deleteFavouriteItem(favouriteItem: DocumentSnapshot)
 
-    fun favouriteContainsPlant(buyerId: String, plantId: String, callback: (DocumentSnapshot?) -> Unit)
-
-
+    fun favouriteContainsPlant(
+        buyerId: String,
+        plantId: String,
+        callback: (DocumentSnapshot?) -> Unit
+    )
 
     fun searchByCategory(
         searchCategory: String,

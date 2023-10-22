@@ -24,6 +24,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.math.log
 
 internal fun Context.log(message: String) {
     Log.d("hm123", "data => ${message}")
@@ -156,7 +157,10 @@ internal fun Activity.closeApplicationAlertDialog(supportFragmentManager: Fragme
     }
 }
 
-internal fun FragmentManager.clearAllBackStackExcept(myList: MutableList<ChangeFragment>, fragmentName: ChangeFragment) {
+internal fun FragmentManager.clearAllBackStackExcept(
+    myList: MutableList<ChangeFragment>,
+    fragmentName: ChangeFragment
+) {
     myList.remove(fragmentName)
     myList.forEach {
         this.popBackStack(
@@ -198,7 +202,7 @@ internal fun String.isValidPassword(): Boolean {
 }
 
 internal fun Activity.showPaymentAlert(): AlertDialog {
-    this.let {activity->
+    this.let { activity ->
         val alertDialog = AlertDialog.Builder(this).let {
             this.layoutInflater.inflate(
                 R.layout.payment_alert_dialog,
@@ -216,6 +220,15 @@ internal fun Activity.showPaymentAlert(): AlertDialog {
         }
         return alertDialog
     }
+}
+
+internal fun List<DocumentSnapshot>.postProcessingCoefficientPlant(context: Context): List<DocumentSnapshot> {
+    val postProcessingPlantList = mutableListOf<DocumentSnapshot>()
+    val limit = (1..(1..this.size).random())
+    for (i in limit) {
+        postProcessingPlantList.add(this.random())
+    }
+    return postProcessingPlantList
 }
 
 fun Context.convertTo12Hr(time24Hr: String): String? {

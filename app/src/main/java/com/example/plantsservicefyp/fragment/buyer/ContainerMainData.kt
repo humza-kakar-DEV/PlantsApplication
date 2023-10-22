@@ -24,7 +24,6 @@ import com.example.plantsservicefyp.viewmodel.SharedViewModel
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class ContainerMainData : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 

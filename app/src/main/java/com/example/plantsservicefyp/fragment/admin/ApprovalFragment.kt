@@ -49,6 +49,12 @@ class ApprovalFragment : Fragment(), NavigationView.OnNavigationItemSelectedList
     ): View? {
         binding = FragmentApprovalBinding.inflate(layoutInflater, container, false);
 
+        binding.chatFab.setImageDrawable(requireContext().getDrawable(R.drawable.chat_icon_32))
+        binding.chatFab.imageTintList = requireContext().getColorStateList(R.color.white)
+
+        binding.chatFab.setOnClickListener {
+            sharedViewModel.changeFragment(ChangeFragment.CHAT_FRAGMENT)
+        }
 
         actionBarDrawerToggle =
             ActionBarDrawerToggle(

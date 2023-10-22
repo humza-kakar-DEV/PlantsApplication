@@ -3,6 +3,7 @@ package com.example.plantsservicefyp.blur
 import android.content.Context
 import android.graphics.BlurMaskFilter
 import android.graphics.Canvas
+import android.graphics.MaskFilter
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View

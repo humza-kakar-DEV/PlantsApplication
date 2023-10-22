@@ -26,7 +26,6 @@ class AuthenticationViewModel @Inject constructor(
     val _observeSignIn: LiveData<UiState<AuthResult>>
         get() = observeSignIn
 
-
     private var observeCurrentUser = MutableLiveData<CurrentUserType<User>>()
     val _observeCurrentUser: LiveData<CurrentUserType<User>>
         get() {
@@ -60,7 +59,7 @@ class AuthenticationViewModel @Inject constructor(
         authenticationRepository.signOut()
     }
 
-    fun getUserWithId (userId: String) {
+    fun getUserWithId(userId: String) {
         authenticationRepository.getUserWithId(userId) {
             observeUser.value = it
         }

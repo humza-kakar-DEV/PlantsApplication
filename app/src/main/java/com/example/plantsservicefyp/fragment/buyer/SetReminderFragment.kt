@@ -66,11 +66,11 @@ class SetReminderFragment : Fragment() {
             start()
             doOnEnd {
                 ObjectAnimator.ofFloat(binding.wallClockRightImageView, "translationY", 0f).apply {
-                    duration = 1000
+                    duration = 500
                     start()
                 }
                 ObjectAnimator.ofFloat(binding.wallClockRightImageView, "alpha", 1f).apply {
-                    duration = 1000
+                    duration = 500
                     start()
                     doOnEnd {
                         ObjectAnimator.ofFloat(
@@ -78,12 +78,12 @@ class SetReminderFragment : Fragment() {
                             "translationY",
                             0f
                         ).apply {
-                            duration = 1000
+                            duration = 500
                             start()
                         }
                         ObjectAnimator.ofFloat(binding.wallClockLeftImageView, "alpha", 1f)
                             .apply {
-                                duration = 1000
+                                duration = 500
                                 start()
                             }
                     }

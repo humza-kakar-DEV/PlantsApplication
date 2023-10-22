@@ -1,7 +1,9 @@
 package com.example.plantsservicefyp.model.firebase
 
 data class Message(
-    val email: String,
-    val message: String,
-    val messageType: String
+    var messageId: String = "",
+    var email: String = "",
+    var message: String = "",
+    var messageType: String = "",
+    var createdAt: Long = 0L,
 )
